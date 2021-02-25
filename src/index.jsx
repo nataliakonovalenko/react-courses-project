@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SinglePost from './SinglePost';
-import './css/styles.scss'
+import Header from "./components/Header/Header";
+import './css/common.scss';
 
 ReactDOM.render(
-    <SinglePost />,
+    <Header />,
     document.getElementById('root')
 );

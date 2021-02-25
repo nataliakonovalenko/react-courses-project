@@ -1,0 +1,21 @@
+@import "./variables.scss";
+
+body {
+    background: $bg-color;
+    color: $text-color;
+}
+
+a {
+    color: $link-color;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
