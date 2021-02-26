@@ -42,7 +42,12 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
-                use: ['file-loader'],
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                    },
+                },
             },
             {
                 test: /\.jsx$/,

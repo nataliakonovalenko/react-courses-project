@@ -3,6 +3,7 @@
 body {
     background: $bg-color;
     color: $text-color;
+    margin: 0;
 }
 
 a {
@@ -14,8 +15,12 @@ a {
     }
 }
 
+img {
+    max-width: 100%;
+}
+
 .container {
-    max-width: 1200px;
+    max-width: 1600px;
     padding: 0 20px;
     margin: 0 auto;
 }

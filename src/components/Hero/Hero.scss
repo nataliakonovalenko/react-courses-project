@@ -1,0 +1,9 @@
+@import "../../css/variables.scss";
+
+.hero {
+  //background-image: url("../../assets/hero-img.jpg");
+  min-height: 400px;
+  background: blue;
+  border-bottom: 8px solid $gray;
+  padding: 120px 0 0;
+}

@@ -1,8 +1,16 @@
 .header {
-  padding: 25px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 
   .container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
+}
+
+.logo {
+  max-width: 200px;
 }
