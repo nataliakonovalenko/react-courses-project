@@ -182,4 +182,21 @@ const movies= [
     }
 ];
 
-export default movies;
+const moviesMapped = movies.map(movie => {
+    return {
+        id: movie.id,
+        title: movie.title,
+        tagline: movie.tagline,
+        vote_average: movie.vote_average,
+        vote_count: movie.vote_count,
+        release_date: new Date(movie.release_date.split('-')[0], movie.release_date.split('-')[1], movie.release_date.split('-')[2]),
+        poster_path: movie.poster_path,
+        overview: movie.overview,
+        budget: movie.budget,
+        revenue: movie.revenue,
+        genres: movie.genres,
+        runtime: movie.runtime
+    }
+});
+
+export default moviesMapped;
