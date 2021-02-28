@@ -1,0 +1,32 @@
+@import "../../css/variables.scss";
+
+.sort-box {
+  text-transform: uppercase;
+  display: flex;
+}
+
+.sort-title {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15px;
+}
+
+.sort-select {
+  &__title {
+    position: relative;
+    padding: 0 20px 0 0;
+
+    &:after {
+      content:"";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 6px 6px 0 6px;
+      border-color: $link-color transparent transparent transparent;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -5,5 +5,7 @@ $gray: #424242;
 $light-gray: #555;
 
 $text-color: $white;
+$text-color-primary: lighten($light-gray, 10%);
 $link-color: $red;
 $bg-color: $black;
+$bg-color-light: $gray;

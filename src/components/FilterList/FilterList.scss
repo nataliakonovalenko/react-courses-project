@@ -1,0 +1,33 @@
+@import "../../css/variables.scss";
+
+.filter-list {
+  text-transform: uppercase;
+  font-size: 15px;
+  margin: 0 -5px;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+
+    &.active {
+      a:after {
+        content:"";
+        border-bottom: 3px solid $link-color;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -26px;
+        z-index: 1;
+      }
+    }
+  }
+
+  a {
+    position: relative;
+    color: $text-color;
+    text-decoration: none;
+  }
+}

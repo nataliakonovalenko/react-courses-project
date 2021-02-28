@@ -3,14 +3,15 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
 
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-}
 
-.logo {
-  max-width: 200px;
+  .logo {
+    max-width: 150px;
+  }
 }
