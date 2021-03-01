@@ -5,7 +5,7 @@ import MovieBox from "./MovieBox/MovieBox";
 
 export default function MoviesList() {
     return(
-        <div className={"movies-list"}>
+        <div className="movies-list">
             {moviesMapped.map( movie => <MovieBox key={`movie-box-${movie.id}`} movie={movie} /> ) }
         </div>
     )

@@ -6,12 +6,12 @@ import MoviesList from "../MoviesList/MoviesList";
 
 export default function Main() {
     return(
-        <div className={"container"}>
-            <div className={"top-panel"}>
+        <div className="container">
+            <div className="top-panel">
                 <FilterList/>
                 <SortBox />
             </div>
-            <span className={"filter-title"}>39 movies found</span>
+            <span className="filter-title">39 movies found</span>
             <MoviesList />
         </div>
     )

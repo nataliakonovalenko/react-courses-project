@@ -4,10 +4,10 @@ import "./Footer.scss";
 
 export default function Footer() {
     return(
-        <footer className={"footer"}>
-            <div className={"container"}>
-                <div className={"logo"}>
-                    <a href={"#"}>
+        <footer className="footer">
+            <div className="container">
+                <div className="logo">
+                    <a href="#">
                         <img src={FooterLogo} alt="Netflix"/>
                     </a>
                 </div>

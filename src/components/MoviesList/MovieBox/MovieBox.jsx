@@ -1,18 +1,18 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const MoviesBox = (props) => {
     const {poster_path, title, genres, release_date} = props.movie;
 
     return(
-        <div className={"movie-box"}>
+        <div className="movie-box">
             <img src={poster_path} alt=""/>
-            <div className={"movie-description"}>
-                <div className={"movie-heading"}>
+            <div className="movie-description">
+                <div className="movie-heading">
                     <h2>{title}</h2>
-                    <span className={"movie-title"}>{genres.join(', ')}</span>
+                    <span className="movie-title">{genres.join(', ')}</span>
                 </div>
-                <span className={"movie-year"}>{release_date.getFullYear()}</span>
+                <span className="movie-year">{release_date.getFullYear()}</span>
             </div>
         </div>
     )

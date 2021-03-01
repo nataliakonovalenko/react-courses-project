@@ -5,10 +5,10 @@ import HeaderLogo from "../../assets/netflix-logo.png"
 
 export default function Header() {
     return(
-        <header className={"header"}>
-            <div className={"container"}>
-                <div className={"logo"}>
-                    <a href={"#"}>
+        <header className="header">
+            <div className="container">
+                <div className="logo">
+                    <a href="#">
                         <img src={HeaderLogo} alt="Netflix"/>
                     </a>
                 </div>
