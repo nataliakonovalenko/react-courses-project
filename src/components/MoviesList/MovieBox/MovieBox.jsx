@@ -10,7 +10,7 @@ const MoviesBox = (props) => {
             <div className={"movie-description"}>
                 <div className={"movie-heading"}>
                     <h2>{title}</h2>
-                    <span className={"movie-title"}>{genres}</span>
+                    <span className={"movie-title"}>{genres.join(', ')}</span>
                 </div>
                 <span className={"movie-year"}>{release_date.getFullYear()}</span>
             </div>
