@@ -1,18 +1,23 @@
 import React from "react";
 import AddMovieButton from "./AddMovieButton/AddMovieButton";
-import "./Header.scss";
-import HeaderLogo from "../../assets/netflix-logo.png"
+import "./header.scss";
+import Logo from "../Logo/Logo";
+import HeroImage from "../../assets/hero-img.jpg";
+import SearchForm from "./SearchForm/SearchForm";
 
 export default function Header() {
     return(
         <header className="header">
-            <div className="container">
-                <div className="logo">
-                    <a href="#">
-                        <img src={HeaderLogo} alt="Netflix"/>
-                    </a>
+            <div className="bg-image" style={{ backgroundImage: `url(${HeroImage})` }} />
+            <div className="top-header">
+                <div className="container">
+                    <Logo />
+                    <AddMovieButton />
                 </div>
-                <AddMovieButton />
+            </div>
+            <div className="search-block">
+                <h1>Find your movie</h1>
+                <SearchForm />
             </div>
         </header>
     )

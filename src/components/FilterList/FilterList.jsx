@@ -1,5 +1,5 @@
 import React from "react";
-import "./FilterList.scss"
+import "./filter-list.scss"
 
 export default function FilterList() {
     return(

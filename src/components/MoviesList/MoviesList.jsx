@@ -1,5 +1,5 @@
 import React from "react";
-import "./MoviesList.scss";
+import "./movies-list.scss";
 import moviesMapped from "../../data/movies.js"
 import MovieBox from "./MovieBox/MovieBox";
 

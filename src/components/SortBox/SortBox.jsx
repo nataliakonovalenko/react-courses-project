@@ -1,5 +1,5 @@
 import React from "react";
-import "./SortBox.scss"
+import "./sort-box.scss"
 
 export default function SortBox() {
     return(

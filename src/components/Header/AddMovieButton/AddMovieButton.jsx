@@ -1,6 +1,6 @@
 import React from "react";
-import "./AddMovieButton.scss"
+import "./add-movie-button.scss"
 
 export default function AddMovieButton() {
-    return <button type="button" className="add-movie">+Add Movie</button>
+    return <button type="button" className="add-movie-btn">+Add Movie</button>
 }

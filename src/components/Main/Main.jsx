@@ -1,5 +1,5 @@
 import React from "react";
-import "./Main.scss"
+import "./main.scss"
 import FilterList from "../FilterList/FilterList";
 import SortBox from "../SortBox/SortBox";
 import MoviesList from "../MoviesList/MoviesList";
