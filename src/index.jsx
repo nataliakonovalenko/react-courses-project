@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SinglePost from './SinglePost';
-import './css/styles.scss'
+import App from "./App";
+import './css/common.scss';
 
 ReactDOM.render(
-    <SinglePost />,
+    <App />,
     document.getElementById('root')
 );
