@@ -1,0 +1,99 @@
+@import "../../../scss/variables.scss";
+
+.movie-box  {
+  padding: 0 20px 20px;
+  position: relative;
+
+  h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 15px;
+  }
+
+  .movie-description {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 0;
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+
+  .movie-year {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid $text-color-primary;
+    border-radius: 3px;
+    padding: 3px 5px;
+    font-size: 14px;
+  }
+}
+
+.movie-dropdown {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+
+  .movie-dropdown-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: $bg-color;
+    padding: 25px 0 15px;
+    border-radius: 5px;
+    min-width: 150px;
+  }
+}
+
+.movie-edit-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $bg-color;
+  border: 0;
+  padding: 0;
+  text-indent: -9999px;
+  position: relative;
+
+  &:after {
+    content: '•••';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    font-size: 15px;
+    letter-spacing: 4px;
+    margin-top: 2px;
+    color: $text-color;
+    text-indent: 0;
+  }
+}
+
+.movie-dropdown-close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border: none;
+  background: none;
+  width: 15px;
+  height: 15px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 10px;
+    background-color: $text-color;
+    transform: rotate(45deg) translate(-50%, -50%);
+    transform-origin: top left;
+    content: '';
+  }
+
+  &:after {
+    transform: rotate(-45deg) translate(-50%, -50%);
+  }
+}

@@ -1,24 +1,77 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./movie-box.scss"
+import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
 
-const MoviesBox = (props) => {
-    const {poster_path, title, genres, release_date} = props.movie;
+export default class MoviesBox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showButtonDropdown: false,
+            showDropdown: false
+        }
+    }
 
-    return(
-        <div className="movie-box">
-            <img src={poster_path} alt=""/>
-            <div className="movie-description">
-                <div className="movie-heading">
-                    <h2>{title}</h2>
-                    <span className="movie-title">{genres.join(', ')}</span>
+    showButtonDropdown = () => {
+        this.setState({
+            showButtonDropdown: true
+        })
+    };
+
+    hideButtonDropdown = () => {
+        this.setState({
+            showButtonDropdown: false,
+            showDropdown: false
+        })
+    };
+
+    showDropdown = () => {
+        this.setState({
+            showDropdown: true
+        })
+    };
+
+    hideDropdown = () => {
+        this.setState({
+            showDropdown: false
+        })
+    };
+
+    render() {
+        const {poster_path, title, genres, release_date} = this.props.movie;
+
+        return (
+            <div className="movie-box" onMouseEnter={this.showButtonDropdown} onMouseLeave={this.hideButtonDropdown}>
+                <img src={poster_path} alt=""/>
+                <div className="movie-description">
+                    <div className="movie-heading">
+                        <h2>{title}</h2>
+                        <span className="movie-title">{genres.join(', ')}</span>
+                    </div>
+                    <span className="movie-year">{release_date.getFullYear()}</span>
                 </div>
-                <span className="movie-year">{release_date.getFullYear()}</span>
+                {
+                    this.state.showButtonDropdown ? (
+                    <div className="movie-dropdown">
+                        <button type="button" onClick={this.showDropdown} className="movie-edit-icon"></button>
+                        {
+                            this.state.showDropdown ? (
+                                <div className="movie-dropdown-wrap">
+                                    <MovieDropdownList />
+                                    <button
+                                        className="movie-dropdown-close"
+                                        onClick={this.hideDropdown}
+                                    >X</button>
+                                </div>
+                            ): null
+                        }
+                    </div>
+                    ): null
+                }
             </div>
-        </div>
-    )
+        )
+    }
 };
-
-export default MoviesBox;
 
 MoviesBox.propTypes = {
     movie: PropTypes.exact({
