@@ -7,52 +7,26 @@ import "./movie-dropdown-list.scss"
 export default class MovieDropdownList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isShowModalEdit: false,
-            isShowModalDelete: false
-        }
     }
 
-    handleShowModalEdit = (e) => {
-      e.preventDefault();
-      this.setState({
-          isShowModalEdit: true
-      })
-    };
-
-    handleShowModalDelete = (e) => {
+    handleEditClick = (e) => {
         e.preventDefault();
-        this.setState({
-            isShowModalDelete: true
-        })
+        this.props.onModalEditClick();
     };
 
-    handleCloseModalDelete = () => {
-        this.setState({
-            isShowModalDelete: false
-        })
-    };
-
-    handleCloseModalEdit = () => {
-        this.setState({
-            isShowModalEdit: false
-        })
+    handleDeleteClick = (e) => {
+        e.preventDefault();
+        this.props.onModalDeleteClick();
     };
 
     render() {
         return (
             <ul className="movie-dropdown-list">
                 <li>
-                    <a href="#" onClick={this.handleShowModalEdit}>Edit</a>
-                    <Modal isOpen={this.state.isShowModalEdit} onClose={this.handleCloseModalEdit}>
-                        <EditMovieForm />
-                    </Modal>
+                    <a href="#" onClick={this.handleEditClick}>Edit</a>
                 </li>
                 <li>
-                    <a href="#" onClick={this.handleShowModalDelete}>Delete</a>
-                    <Modal isOpen={this.state.isShowModalDelete} onClose={this.handleCloseModalDelete}>
-                        <DeleteMovie />
-                    </Modal>
+                    <a href="#" onClick={this.handleDeleteClick}>Delete</a>
                 </li>
             </ul>
         )

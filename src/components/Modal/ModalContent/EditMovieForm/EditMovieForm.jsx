@@ -3,7 +3,7 @@ import React from "react";
 export default function EditMovieForm() {
     return(
         <form action="#" className="edit-movie-form">
-            <h1>Add movie</h1>
+            <h1>Edit movie</h1>
             <div className="label">Movie Id</div>
             <div className="form-text">M032820TH</div>
             <div className="form-row">
