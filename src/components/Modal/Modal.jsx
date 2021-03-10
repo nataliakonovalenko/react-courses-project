@@ -1,8 +1,6 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import "./modal.scss";
-
-let modalsCount = 0;
 
 class Modal extends React.Component {
     constructor( props ) {
@@ -17,17 +15,13 @@ class Modal extends React.Component {
         }
     }
 
-    componentDidMount() {
-        modalsCount++;
-    }
-
     componentWillUnmount() {
-        modalsCount--;
-
-        if (modalsCount === 0) {
-            document.body.removeChild(this.container);
-        }
+       document.body.removeChild(this.container);
     }
+
+    handleClose = () => {
+        this.props.onClose();
+    };
 
     render() {
         if (!this.props.isOpen) {
@@ -41,7 +35,7 @@ class Modal extends React.Component {
                         {this.props.children}
                         <button
                             className="modal-close"
-                            onClick={() => {this.props.onClose && this.props.onClose()}}
+                            onClick={this.handleClose}
                         >X</button>
                     </div>
                 </div>

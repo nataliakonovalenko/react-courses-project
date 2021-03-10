@@ -2,33 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./movie-box.scss"
 import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
-import EditMovieForm from "../../Modal/ModalContent/EditMovieForm/EditMovieForm";
-import Modal from "../../Modal/Modal";
-import DeleteMovie from "../../Modal/ModalContent/DeleteMovie/DeleteMovie";
 
-export default class MoviesBox extends React.Component {
+export default class MovieBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showButtonDropdown: false,
             showDropdown: false,
             isShowModalEdit: false,
             isShowModalDelete: false
         }
     }
-
-    showButtonDropdown = () => {
-        this.setState({
-            showButtonDropdown: true
-        })
-    };
-
-    hideButtonDropdown = () => {
-        this.setState({
-            showButtonDropdown: false,
-            showDropdown: false
-        })
-    };
 
     showDropdown = () => {
         this.setState({
@@ -42,28 +25,12 @@ export default class MoviesBox extends React.Component {
         })
     };
 
-    handleShowModalEdit = () => {
-      this.setState({
-          isShowModalEdit: true
-      })
+    handleEditAction = () => {
+        this.props.onAction('edit', this.props.movie);
     };
 
-    handleShowModalDelete = () => {
-        this.setState({
-            isShowModalDelete: true
-        })
-    };
-
-    handleCloseModalDelete = () => {
-        this.setState({
-            isShowModalDelete: false
-        })
-    };
-
-    handleCloseModalEdit = () => {
-        this.setState({
-            isShowModalEdit: false
-        })
+    handleDeleteAction = () => {
+        this.props.onAction('delete', this.props.movie);
     };
 
     render() {
@@ -71,7 +38,7 @@ export default class MoviesBox extends React.Component {
 
         return (
             <>
-                <div className="movie-box" onMouseEnter={this.showButtonDropdown} onMouseLeave={this.hideButtonDropdown}>
+                <div className="movie-box">
                     <img src={poster_path} alt=""/>
                     <div className="movie-description">
                         <div className="movie-heading">
@@ -80,41 +47,29 @@ export default class MoviesBox extends React.Component {
                         </div>
                         <span className="movie-year">{release_date.getFullYear()}</span>
                     </div>
-
-                    {
-                        this.state.showButtonDropdown ? (
-                        <div className="movie-dropdown">
-                            <button type="button" onClick={this.showDropdown} className="movie-edit-icon"></button>
-                            {
-                                this.state.showDropdown ? (
-                                    <div className="movie-dropdown-wrap">
-                                        <MovieDropdownList
-                                            onModalEditClick={this.handleShowModalEdit}
-                                            onModalDeleteClick={ this.handleShowModalDelete} />
-                                        <button
-                                            className="movie-dropdown-close"
-                                            onClick={this.hideDropdown}
-                                        >X</button>
-                                    </div>
-                                ): null
-                            }
-                        </div>
-                        ): null
-                    }
+                    <div className="movie-dropdown">
+                        <button type="button" onClick={this.showDropdown} className="movie-edit-icon"></button>
+                        {
+                            this.state.showDropdown ? (
+                                <div className="movie-dropdown-wrap">
+                                    <MovieDropdownList
+                                        onEditClick={this.handleEditAction}
+                                        onDeleteClick={this.handleDeleteAction} />
+                                    <button
+                                        className="movie-dropdown-close"
+                                        onClick={this.hideDropdown}
+                                    >X</button>
+                                </div>
+                            ): null
+                        }
+                    </div>
                 </div>
-                <Modal isOpen={this.state.isShowModalEdit} onClose={this.handleCloseModalEdit}>
-                    <EditMovieForm />
-                </Modal>
-                <Modal isOpen={this.state.isShowModalDelete} onClose={this.handleCloseModalDelete}>
-                    <DeleteMovie />
-                </Modal>
             </>
-
         )
     }
 };
 
-MoviesBox.propTypes = {
+MovieBox.propTypes = {
     movie: PropTypes.exact({
         poster_path: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
