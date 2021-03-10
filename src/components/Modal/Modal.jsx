@@ -24,10 +24,6 @@ class Modal extends React.Component {
     };
 
     render() {
-        if (!this.props.isOpen) {
-            return null;
-        }
-
         const modal = (
             <div className="modal">
                 <div className="modal-container">
