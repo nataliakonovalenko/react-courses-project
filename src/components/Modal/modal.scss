@@ -1,0 +1,56 @@
+@import "../../styles/variables.scss";
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($bg-color, 0.7);
+  z-index: 10;
+}
+
+.modal-container {
+  display: flex;
+  align-items: center;
+  max-width: 700px;
+  margin: 20px auto;
+  transform: translate(0,0);
+  min-height: calc(100% - (20px * 2));
+}
+
+.modal-content {
+  background: $bg-color;
+  padding: 2em 3em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  width: 60px;
+  height: 60px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 40px;
+    background-color: $text-color;
+    transform: rotate(45deg) translate(-50%, -50%);
+    transform-origin: top left;
+    content: '';
+  }
+
+  &:after {
+    transform: rotate(-45deg) translate(-50%, -50%);
+  }
+}

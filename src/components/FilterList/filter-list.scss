@@ -1,4 +1,4 @@
-@import "../../css/variables.scss";
+@import "../../styles/variables.scss";
 
 .filter-list {
   text-transform: uppercase;
@@ -6,6 +6,7 @@
   margin: 0 -5px;
   padding: 0;
   list-style: none;
+  width: 60%;
 
   li {
     display: inline-block;

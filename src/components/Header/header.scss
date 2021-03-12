@@ -1,4 +1,4 @@
-@import "../../css/variables.scss";
+@import "../../styles/variables.scss";
 
 .header {
   position: relative;
@@ -7,11 +7,6 @@
 
   .logo {
     max-width: 150px;
-  }
-
-  h1 {
-    text-transform: uppercase;
-    font-weight: normal;
   }
 }
 
