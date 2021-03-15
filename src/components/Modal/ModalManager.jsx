@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useContext, useCallback} from "react";
 import Modal from "./Modal";
 import MovieForm from "./ModalContent/MovieForm/MovieForm";
 import DeleteMovie from "./ModalContent/DeleteMovie/DeleteMovie";
+import ModalContext from "../../ModalContext";
 
 const ModalManager = (props) => {
+    const {modalToShow} = useContext(ModalContext);
+
     const modals={
-        edit: (modalData) => <MovieForm isEditMovieForm={true} movie={modalData.movie}/>,
-        delete: (modalData) => <DeleteMovie movie={modalData.movie} />,
+        edit: () => <MovieForm isEditMovieForm={true} />,
+        delete: () => <DeleteMovie />,
         add: () => <MovieForm />
     };
 
@@ -14,9 +17,9 @@ const ModalManager = (props) => {
         props.onClose && props.onClose();
     };
 
-    return props.modalToShow ? (
+    return modalToShow ? (
         <Modal onClose={handleClose}>
-            {modals[props.modalToShow](props.modalData)}
+            {modals[modalToShow]()}
         </Modal>
     ) : null
 };

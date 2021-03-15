@@ -1,45 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./modal.scss";
 
-class Modal extends React.Component {
-    constructor( props ) {
-        super( props );
+const Modal = (props) => {
+    const container = document.createElement('div');
+    container.id = 'modal-container';
 
-        this.container = document.getElementById('modal-container');
+    useEffect(() => {
+        document.body.appendChild(container);
 
-        if (!this.container) {
-            this.container = document.createElement('div');
-            this.container.id = 'modal-container';
-            document.body.appendChild(this.container);
+        return () => {
+            document.body.removeChild(container);
         }
-    }
+    });
 
-    componentWillUnmount() {
-       document.body.removeChild(this.container);
-    }
-
-    handleClose = () => {
-        this.props.onClose();
+    const handleClose = () => {
+        props.onClose();
     };
 
-    render() {
-        const modal = (
-            <div className="modal">
-                <div className="modal-container">
-                    <div className="modal-content">
-                        {this.props.children}
-                        <button
-                            className="modal-close"
-                            onClick={this.handleClose}
-                        >X</button>
-                    </div>
+    const modal = (
+        <div className="modal">
+            <div className="modal-container">
+                <div className="modal-content">
+                    {props.children}
+                    <button
+                        className="modal-close"
+                        onClick={handleClose}
+                    >X</button>
                 </div>
             </div>
-        );
+        </div>
+    );
 
-        return ReactDOM.createPortal(modal, this.container);
-    }
-}
+    return ReactDOM.createPortal(modal, container);
+};
 
 export default Modal;

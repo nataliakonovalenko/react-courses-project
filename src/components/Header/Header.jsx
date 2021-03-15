@@ -1,34 +1,36 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./header.scss";
 import Logo from "../Logo/Logo";
 import HeroImage from "../../assets/hero-img.jpg";
 import SearchForm from "./SearchForm/SearchForm";
 import Button from "../Button/Button";
+import MovieDetails from "./MovieDetails/MovieDetails";
+import ModalContext from "../../ModalContext";
 
-export default class Header extends React.Component{
-    constructor( props ) {
-        super( props );
-    }
+const Header = (props) => {
+    const {setModalToShow, setModalData} = useContext(ModalContext);
 
-    handleAddMovie = () => {
-        this.props.onAddMovie();
+    const handleAddMovie = () => {
+        setModalData({});
+        setModalToShow('add');
     };
 
-    render() {
-        return (
-            <header className="header">
-                <div className="bg-image" style={{backgroundImage: `url(${HeroImage})`}}/>
+    return (
+        <header className="header">
+            <div className="bg-image" style={{backgroundImage: `url(${HeroImage})`}}/>
+            <div className="container">
                 <div className="top-header">
-                    <div className="container">
-                        <Logo/>
-                        <Button className="add-movie" title="+ Add movie" onButtonClick={this.handleAddMovie}/>
-                    </div>
+                    <Logo/>
+                    <Button className="add-movie" title="+ Add movie" onButtonClick={handleAddMovie}/>
                 </div>
-                <div className="search-block">
-                    <h1>Find your movie</h1>
-                    <SearchForm/>
-                </div>
-            </header>
-        )
-    }
-}
+                <MovieDetails/>
+                {/*<div className="search-block">*/}
+                {/*    <h1>Find your movie</h1>*/}
+                {/*    <SearchForm/>*/}
+                {/*</div>*/}
+            </div>
+        </header>
+    )
+};
+
+export default Header;

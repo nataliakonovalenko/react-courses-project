@@ -1,73 +1,68 @@
-import React from "react";
+import React, {useState, useContext, useCallback} from "react";
 import PropTypes from "prop-types";
 import "./movie-box.scss"
 import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
+import MovieContext from "../../../MovieContext"
+import ModalContext from "../../../ModalContext"
 
-export default class MovieBox extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showDropdown: false,
-            isShowModalEdit: false,
-            isShowModalDelete: false
-        }
-    }
+const MovieBox = (props) => {
+    const [movieDropdown, setMovieDropdown] = useState(false);
+    const {setModalData, setModalToShow} = useContext(ModalContext);
+    const {setMovie} = useContext(MovieContext);
 
-    showDropdown = () => {
-        this.setState({
-            showDropdown: true
-        })
+    const showDropdown = () => {
+        setMovieDropdown(true);
     };
 
-    hideDropdown = () => {
-        this.setState({
-            showDropdown: false
-        })
+    const hideDropdown = () => {
+        setMovieDropdown(false);
     };
 
-    handleEditAction = () => {
-        this.props.onAction('edit', this.props.movie);
-    };
+    const handleEditAction = useCallback(() => {
+        setModalData(props.movie);
+        setModalToShow('edit');
+    }, [props.movie]);
 
-    handleDeleteAction = () => {
-        this.props.onAction('delete', this.props.movie);
-    };
+    const handleDeleteAction = useCallback(() => {
+        setModalData(props.movie);
+        setModalToShow('delete');
+    }, [props.movie]);
 
-    render() {
-        const {poster_path, title, genres, release_date} = this.props.movie;
+    const {poster_path, title, genres, release_date} = props.movie;
 
-        return (
-            <>
-                <div className="movie-box">
-                    <img src={poster_path} alt=""/>
-                    <div className="movie-description">
-                        <div className="movie-heading">
-                            <h2>{title}</h2>
-                            <span className="movie-title">{genres.join(', ')}</span>
-                        </div>
-                        <span className="movie-year">{release_date.getFullYear()}</span>
-                    </div>
-                    <div className="movie-dropdown">
-                        <button type="button" onClick={this.showDropdown} className="movie-edit-icon"></button>
-                        {
-                            this.state.showDropdown ? (
-                                <div className="movie-dropdown-wrap">
-                                    <MovieDropdownList
-                                        onEditClick={this.handleEditAction}
-                                        onDeleteClick={this.handleDeleteAction} />
-                                    <button
-                                        className="movie-dropdown-close"
-                                        onClick={this.hideDropdown}
-                                    >X</button>
-                                </div>
-                            ): null
-                        }
-                    </div>
+    return (
+        <div className="movie-box">
+            <img src={poster_path} alt=""/>
+            <div className="movie-description" onClick={() => {
+                setMovie(props.movie);
+            }}>
+                <div className="movie-heading">
+                    <h2>{title}</h2>
+                    <span className="movie-title">{genres.join(', ')}</span>
                 </div>
-            </>
-        )
-    }
+                <span className="movie-year">{release_date.getFullYear()}</span>
+            </div>
+            <div className="movie-dropdown">
+                <button type="button" onClick={showDropdown} className="movie-edit-icon"></button>
+                {
+                    movieDropdown === true ? (
+                        <div className="movie-dropdown-wrap">
+                            <MovieDropdownList
+                                onEditClick={handleEditAction}
+                                onDeleteClick={handleDeleteAction} />
+                            <button
+                                className="movie-dropdown-close"
+                                onClick={hideDropdown}
+                            >X</button>
+                        </div>
+                    ): null
+                }
+            </div>
+        </div>
+    )
 };
+
+export default MovieBox;
 
 MovieBox.propTypes = {
     movie: PropTypes.exact({

@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "../../../Button/Button";
 import FormRow from "../../../Forms/FormRow";
+import ModalContext from "../../../../ModalContext";
 
 export default function MovieForm(props) {
+    const {modalData} = useContext(ModalContext);
+
     const selectOptions = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 
     return(
@@ -13,7 +16,7 @@ export default function MovieForm(props) {
                 ): "Add"} movie
             </h1>
             <FormRow label="Title">
-                <input id="Title" placeholder="Title" type="text" {...(props.isEditMovieForm && { defaultValue: props.movie.title })} />
+                <input id="Title" placeholder="Title" type="text" {...(props.isEditMovieForm && { defaultValue: modalData.title })} />
             </FormRow>
             <FormRow label="Release date">
                 <input id="Release date" placeholder="Select date" type="date" {...(props.isEditMovieForm && { defaultValue: "Moana" })} />
@@ -29,10 +32,10 @@ export default function MovieForm(props) {
                 </div>
             </FormRow>
             <FormRow label="Overview">
-                <input id="Overview" placeholder="Overview" type="text" {...(props.isEditMovieForm && { defaultValue: props.movie.overview })} />
+                <input id="Overview" placeholder="Overview" type="text" {...(props.isEditMovieForm && { defaultValue: modalData.overview })} />
             </FormRow>
             <FormRow label="Runtime">
-                <input id="Runtime" placeholder="Runtime" type="text" {...(props.isEditMovieForm && { defaultValue: props.movie.runtime })} />
+                <input id="Runtime" placeholder="Runtime" type="text" {...(props.isEditMovieForm && { defaultValue: modalData.runtime })} />
             </FormRow>
             <div className="buttons-holder">
                 <Button className="btn-outline" title="reset" type="reset"/>
