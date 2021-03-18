@@ -1,31 +1,28 @@
 import React from "react";
 import "./movie-dropdown-list.scss"
 
-export default class MovieDropdownList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const MovieDropdownList = (props) => {
 
-    handleEditClick = (e) => {
+    const handleEditClick = (e) => {
         e.preventDefault();
-        this.props.onEditClick();
+        props.onEditClick();
     };
 
-    handleDeleteClick = (e) => {
+    const handleDeleteClick = (e) => {
         e.preventDefault();
-        this.props.onDeleteClick();
+        props.onDeleteClick();
     };
 
-    render() {
-        return (
-            <ul className="movie-dropdown-list">
-                <li>
-                    <a href="#" onClick={this.handleEditClick} >Edit</a>
-                </li>
-                <li>
-                    <a href="#" onClick={this.handleDeleteClick}>Delete</a>
-                </li>
-            </ul>
-        )
-    }
-}
+    return (
+        <ul className="movie-dropdown-list">
+            <li>
+                <a href="#" onClick={handleEditClick} >Edit</a>
+            </li>
+            <li>
+                <a href="#" onClick={handleDeleteClick}>Delete</a>
+            </li>
+        </ul>
+    )
+};
+
+export default MovieDropdownList;
