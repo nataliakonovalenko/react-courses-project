@@ -5,11 +5,11 @@ import DeleteMovie from "./ModalContent/DeleteMovie/DeleteMovie";
 import ModalContext from "../../ModalContext";
 
 const ModalManager = (props) => {
-    const {modalToShow} = useContext(ModalContext);
+    const {modalData, modalToShow} = useContext(ModalContext);
 
     const modals={
-        edit: () => <MovieForm isEditMovieForm={true} />,
-        delete: () => <DeleteMovie />,
+        edit: () => <MovieForm isEditMovieForm={true} movieId={modalData.movieId} onSave={() => {handleClose()}} />,
+        delete: () => <DeleteMovie onConfirm={() => {handleClose()}} />,
         add: () => <MovieForm />
     };
 

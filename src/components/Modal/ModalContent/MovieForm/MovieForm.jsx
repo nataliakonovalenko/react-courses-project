@@ -2,6 +2,8 @@ import React, {useState, useContext} from "react";
 import Button from "../../../Button/Button";
 import FormRow from "../../../Forms/FormRow";
 import ModalContext from "../../../../ModalContext";
+import {editMovie} from "../../../../redux/reducer";
+import {connect} from "react-redux";
 
 function useResetInput(initialValue) {
     const[value, setValue] = useState(initialValue);
@@ -19,21 +21,29 @@ function useResetInput(initialValue) {
     }
 }
 
-export default function MovieForm(props) {
-    const {modalData} = useContext(ModalContext);
-
+const MovieForm = (props) => {
     const selectOptions = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 
-    const inputTitle = useResetInput(modalData.title || '');
-    const inputMovieURL = useResetInput(modalData.url || '');
-    const inputOverview = useResetInput(modalData.overview || '');
-    const inputRuntime = useResetInput(modalData.runtime || '');
+    const inputTitle = useResetInput(props.currentMovie.title || '');
+    const inputMovieURL = useResetInput(props.currentMovie.url || '');
+    const inputOverview = useResetInput(props.currentMovie.overview || '');
+    const inputRuntime = useResetInput(props.currentMovie.runtime || '');
 
     const handleFormReset = () => {
         inputTitle.reset();
         inputMovieURL.reset();
         inputOverview.reset();
         inputRuntime.reset();
+    };
+
+    const handleSaveMovie = () => {
+        props.editCurrentMovie(Object.assign({}, props.currentMovie, {
+            title: inputTitle.value,
+            overview: inputOverview.value,
+            runtime: inputRuntime.value,
+            // release_date: props.movie.release_date.toISOString().substring(0,10),
+        }));
+        props.onSave();
     };
 
     return(
@@ -70,9 +80,31 @@ export default function MovieForm(props) {
             <div className="buttons-holder">
                 <Button type="button" className="btn-outline" title="reset" onButtonClick={handleFormReset} />
                 {props.isEditMovieForm ? (
-                    <Button title="save" type="button"/>
+                    <Button title="save" type="button" onButtonClick={handleSaveMovie}/>
                 ): <Button title="submit" type="submit"/> }
             </div>
         </form>
     )
 };
+
+const mapStateToProps = (state, ownProps) => {
+    const movieIndex = state.moviesList.findIndex(movie => movie.id === ownProps.movieId);
+    let currentMovie = {};
+    if (movieIndex !== -1) {
+        currentMovie = state.moviesList[movieIndex];
+    }
+
+    return {
+        currentMovie: currentMovie
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editCurrentMovie: (movieData) => {
+            dispatch(editMovie(movieData))
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieForm);

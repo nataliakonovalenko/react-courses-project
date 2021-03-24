@@ -16,7 +16,7 @@ const MovieDetails = () => {
             <img className="movie-img" src={poster_path} alt=""/>
             <div className="movie-description">
                 <h1>{title} <span className="film-rating">{vote_average}</span></h1>
-                <span className="movie-info">{release_date.getFullYear()}</span>
+                {/*<span className="movie-info">{release_date.getFullYear()}</span>*/}
                 <span className="movie-info">{runtime}</span>
                 <p>{overview}</p>
             </div>

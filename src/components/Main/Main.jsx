@@ -11,7 +11,6 @@ export default function Main(props) {
                 <FilterList/>
                 <SortBox />
             </div>
-            <span className="filter-title">39 movies found</span>
             <MoviesList onAction={props.onAction} />
         </div>
     )

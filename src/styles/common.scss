@@ -11,6 +11,12 @@ body {
     font: 16px/1.4 Arial, Helvetica, sans-serif;
 }
 
+#root {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 a {
     color: $link-color;
 
