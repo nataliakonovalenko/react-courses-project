@@ -11,11 +11,11 @@ const MoviesList = (props) => {
         props.getMovies();
     }, []);
 
-    const {moviesList} = props;
+    const {moviesList, totalAmount} = props;
 
     return(
         <>
-            <span className="filter-title"> movies found</span>
+            <span className="filter-title">{totalAmount} movies found</span>
             <div className="movies-list">
                 {moviesList.map( movie => <MovieBox key={`movie-box-${movie.id}`} movie={movie} /> ) }
             </div>
@@ -26,7 +26,7 @@ const MoviesList = (props) => {
 const mapStateToProps = (state) => {
     return {
         moviesList: state.moviesList,
-        // totalAmount: state.totalAmount
+        totalAmount: state.totalAmount
     };
 };
 

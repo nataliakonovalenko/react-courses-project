@@ -4,18 +4,31 @@ import {sortMoviesList} from "../../redux/reducer";
 import {connect} from "react-redux";
 
 const SortBox = (props) => {
-    const selectOptions = ['Release Date', 'Rating', 'Genre'];
+    const selectOptions = {
+        release_date: "Release Date",
+        vote_average: "Rating",
+        genres: "Genre"
+    };
+    const [sortParam, setSortParam] = useState(selectOptions[0]);
+    const [sortOrder, setSortOrder] = useState("desc");
 
     const handleOptionChange = (e) => {
-        let sortByParam = '';
-        if (e.target.value === 'Release Date') {
-            sortByParam = 'release_date'
-        } else if (e.target.value === 'Rating') {
-            sortByParam = 'vote_average'
-        } else if (e.target.value === 'Genre') {
-            sortByParam = 'genres'
+        let sortBy = e.target.value;
+        setSortParam(sortBy);
+        props.sortMovies(sortBy, sortOrder);
+    };
+
+    const handleSortOrder = () => {
+        let sortingOrder = sortOrder;
+
+        if (sortingOrder === "desc") {
+            sortingOrder = "asc";
+        } else {
+            sortingOrder = "desc";
         }
-        props.sortMovies(sortByParam, 'asc');
+
+        setSortOrder(sortingOrder);
+        props.sortMovies(sortParam, sortingOrder);
     };
 
     return(
@@ -23,8 +36,11 @@ const SortBox = (props) => {
             <span className="sort-title">Sort by</span>
             <div className="select sort-select">
                 <select onChange={handleOptionChange}>
-                    {selectOptions.map((option, index) => <option key={`option-${index}`} value={option}>{option}</option>)}
+                    {Object.keys(selectOptions).map(function(key, index) {
+                        return <option key={`option-${index}`} value={key}>{selectOptions[key]}</option>
+                    })}
                 </select>
+                <span className={`sort-order ${sortOrder === "desc"? "desc" : "asc"}`} onClick={handleSortOrder}>sort icon</span>
             </div>
         </div>
     )
