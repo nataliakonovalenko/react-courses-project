@@ -5,7 +5,8 @@ import {
     DELETE_MOVIE_LIST_SUCCESS,
     EDIT_MOVIE,
     SORT_MOVIES,
-    SET_TOTAL_AMOUNT
+    SET_TOTAL_AMOUNT,
+    FILTER_MOVIES
 } from "./actionTypes"
 
 const initialState = {
@@ -70,6 +71,11 @@ export default function rootReducer(state = initialState, {type, payload}) {
                 ...state,
                 moviesList: payload.moviesList
             };
+        case FILTER_MOVIES:
+            return {
+                ...state,
+                moviesList: payload.moviesList
+            };
         default:
             return state
     }
@@ -78,6 +84,7 @@ export default function rootReducer(state = initialState, {type, payload}) {
 export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, payload: { moviesList }});
 export const setTotalAmount = (totalAmount) => ({type: SET_TOTAL_AMOUNT, payload: { totalAmount }});
 export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
+export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
 
 export const getMoviesList = () => {
     return (dispatch) => {
@@ -134,6 +141,17 @@ export const sortMoviesList = (sortByParam, orderByParam) => {
     return (dispatch) => {
         api.sortMovies(sortByParam, orderByParam).then((moviesData) => {
             dispatch(setSortedMoviesList(moviesData.data));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+};
+
+export const filterMoviesList = (filter) => {
+    return (dispatch) => {
+        api.filterMovies(filter).then((moviesData) => {
+            dispatch(setFilteredMoviesList(moviesData.data));
+            dispatch(setTotalAmount(moviesData.totalAmount));
         }).catch((error) => {
             console.log(error);
         });
