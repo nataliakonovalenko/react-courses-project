@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import Button from "../../../Button/Button";
-import {deleteMovie} from "../../../../redux/reducer";
 import {connect} from "react-redux";
 import ModalContext from "../../../../ModalContext";
+import {deleteMovie} from "../../../../redux/ActionCreators";
 
 const DeleteMovie =(props) => {
     const {modalData} = useContext(ModalContext);

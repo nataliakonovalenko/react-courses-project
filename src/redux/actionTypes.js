@@ -5,3 +5,4 @@ export const EDIT_MOVIE = "EDIT_MOVIE";
 export const SORT_MOVIES = "SORT_MOVIES";
 export const SET_TOTAL_AMOUNT = "SET_TOTAL_AMOUNT";
 export const FILTER_MOVIES = "FILTER_MOVIES";
+export const ADD_MOVIE = "ADD_MOVIE";

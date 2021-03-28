@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./movies-list.scss";
 import MovieBox from "./MovieBox/MovieBox";
-import { connect } from 'react-redux';
-import {getMoviesList} from "../../redux/reducer";
-import { bindActionCreators } from 'redux'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux"
+import {getMoviesList} from "../../redux/ActionCreators";
 
 const MoviesList = (props) => {
 

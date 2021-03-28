@@ -1,14 +1,14 @@
 import React from "react";
 import "./filter-list.scss"
-import {filterMoviesList} from "../../redux/reducer";
 import {connect} from "react-redux";
+import {filterMoviesList} from "../../redux/ActionCreators";
 
 const FilterList = (props) => {
     const filterList = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
     const handleFilterLink = (e) => {
         e.preventDefault();
-        const filterLink = e.currentTarget.getAttribute('data-filter-link');
+        const filterLink = e.currentTarget.getAttribute("data-filter-link");
         props.filterMovies(filterLink);
     };
 

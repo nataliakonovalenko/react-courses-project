@@ -1,4 +1,18 @@
 import * as axios from "axios";
+import { DateTime } from "luxon";
+import React from "react";
+
+const mapBackendMovieToAppMovie = (movie) => {
+    return Object.assign({},  movie, {
+        release_date: DateTime.fromFormat(movie.release_date, "y-MM-dd"),
+    })
+};
+
+const mapAppMovieToBackendMovie = (movie) => {
+    return Object.assign( {}, movie, {
+        release_date: movie.release_date.toFormat("y-MM-dd"),
+    })
+};
 
 class Api {
     constructor() {
@@ -15,26 +29,17 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => ({
-                    id: movie.id,
-                    title: movie.title,
-                    tagline: movie.tagline,
-                    vote_average: movie.vote_average,
-                    vote_count: movie.vote_count,
-                    release_date: movie.release_date,
-                    poster_path: movie.poster_path,
-                    overview: movie.overview,
-                    budget: movie.budget,
-                    revenue: movie.revenue,
-                    genres: movie.genres,
-                    runtime: movie.runtime
-                }))
+                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
             };
         })
     }
 
-    editMovie(data) {
-        return this.instance.put('/', data);
+    editMovie(movie) {
+        return this.instance.put('/', mapAppMovieToBackendMovie(movie));
+    }
+
+    addMovie(movie) {
+        return this.instance.post('/', mapAppMovieToBackendMovie(movie));
     }
 
     deleteMovie(data){
@@ -54,23 +59,11 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => ({
-                    id: movie.id,
-                    title: movie.title,
-                    tagline: movie.tagline,
-                    vote_average: movie.vote_average,
-                    vote_count: movie.vote_count,
-                    release_date: movie.release_date,
-                    poster_path: movie.poster_path,
-                    overview: movie.overview,
-                    budget: movie.budget,
-                    revenue: movie.revenue,
-                    genres: movie.genres,
-                    runtime: movie.runtime
-                }))
+                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
             };
         })
     }
+
     filterMovies(filter){
         return this.instance.get('/', {
             params: {
@@ -83,26 +76,10 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => ({
-                    id: movie.id,
-                    title: movie.title,
-                    tagline: movie.tagline,
-                    vote_average: movie.vote_average,
-                    vote_count: movie.vote_count,
-                    release_date: movie.release_date,
-                    poster_path: movie.poster_path,
-                    overview: movie.overview,
-                    budget: movie.budget,
-                    revenue: movie.revenue,
-                    genres: movie.genres,
-                    runtime: movie.runtime
-                }))
+                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
             };
         })
     }
 }
-
-//release_date: new Date(movie.release_date.split('-')[0], movie.release_date.split('-')[1], movie.release_date.split('-')[2]),
-
 
 export default new Api();

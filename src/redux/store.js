@@ -1,8 +1,14 @@
-import {createStore, applyMiddleware} from "redux";
+import {createStore, applyMiddleware, combineReducers} from "redux";
 import thunk from 'redux-thunk';
-import rootReducer from "./reducer";
+import modalReducer from "./modal-reducer";
+import movieReducer from "./movie-reducer";
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+// const rootReducer = combineReducers({
+//     movieReducer,
+//     modalReducer
+// });
+
+const store = createStore(movieReducer, applyMiddleware(thunk));
 
 window.store = store;
 

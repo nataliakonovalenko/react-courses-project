@@ -12,11 +12,7 @@ export default function App() {
     const [modalData, setModalData] = React.useState({});
     const [movie, setMovie] = React.useState(null);
 
-    const handleClose = () => {
-        setModalData({});
-        setModalToShow(null);
-    };
-    
+
     return(
         <ErrorBoundary>
             <ModalContext.Provider value={{
@@ -32,7 +28,7 @@ export default function App() {
                     <Header />
                     <Main />
                     <Footer />
-                    <ModalManager onClose={handleClose} />
+                    <ModalManager />
                 </MovieContext.Provider>
             </ModalContext.Provider>
         </ErrorBoundary>
