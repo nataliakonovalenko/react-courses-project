@@ -1,7 +1,7 @@
 import React from "react";
 import "./filter-list.scss"
 import {connect} from "react-redux";
-import {filterMoviesList} from "../../redux/ActionCreators";
+import {filterMoviesList} from "../../redux/movie/action-creators";
 
 const FilterList = (props) => {
     const filterList = ["All", "Documentary", "Comedy", "Horror", "Crime"];

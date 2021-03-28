@@ -1,11 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import Button from "../../../Button/Button";
 import {connect} from "react-redux";
-import ModalContext from "../../../../ModalContext";
-import {deleteMovie} from "../../../../redux/ActionCreators";
+import {deleteMovie} from "../../../../redux/movie/action-creators";
 
 const DeleteMovie =(props) => {
-    const {modalData} = useContext(ModalContext);
+    const {modalData} = props;
 
     const handleDeleteMovie = () => {
         props.deleteCurrentMovie(modalData.movieId);
@@ -23,6 +22,12 @@ const DeleteMovie =(props) => {
     )
 };
 
+const mapStateToProps = (state) => {
+    return {
+        modalData: state.modalReducer.modalData
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
         deleteCurrentMovie: (id) => {
@@ -31,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(DeleteMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovie);

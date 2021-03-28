@@ -1,11 +1,13 @@
-import React, {useContext, useCallback} from "react";
+import React from "react";
 import Modal from "./Modal";
 import MovieForm from "./ModalContent/MovieForm/MovieForm";
 import DeleteMovie from "./ModalContent/DeleteMovie/DeleteMovie";
-import ModalContext from "../../ModalContext";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {closeModal} from "../../redux/modal/action-creators";
 
 const ModalManager = (props) => {
-    const {modalData, modalToShow, setModalData, setModalToShow } = useContext(ModalContext);
+    const { modalData, modalToShow, closeModal } = props;
 
     const modals={
         edit: () => <MovieForm isEditMovieForm={true} movieId={modalData.movieId} onClose={() => {handleClose()}} />,
@@ -14,8 +16,7 @@ const ModalManager = (props) => {
     };
 
     const handleClose = () => {
-        setModalToShow(null);
-        setModalData({});
+        props.closeModal();
     };
 
     return modalToShow ? (
@@ -25,4 +26,15 @@ const ModalManager = (props) => {
     ) : null
 };
 
-export default ModalManager;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ closeModal }, dispatch)
+};
+
+const mapStateToProps = (state) => {
+    return {
+        modalToShow: state.modalReducer.modalToShow,
+        modalData: state.modalReducer.modalData,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalManager);

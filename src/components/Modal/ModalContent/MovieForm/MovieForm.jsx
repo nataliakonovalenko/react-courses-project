@@ -1,10 +1,10 @@
-import React, {useState, useContext} from "react";
+import React from "react";
 import Button from "../../../Button/Button";
 import FormRow from "../../../Forms/FormRow";
 import {connect} from "react-redux";
 import { DateTime } from "luxon";
 import {Field, FieldArray, Formik} from "formik";
-import {editMovie, addMovie} from "../../../../redux/ActionCreators";
+import {editMovie, addMovie} from "../../../../redux/movie/action-creators";
 
 const MovieForm = (props) => {
     const selectOptions = ["All", "Documentary", "Comedy", "Horror", "Crime"];
@@ -50,7 +50,7 @@ const MovieForm = (props) => {
                 poster_path: props.isEditMovieForm ? props.movie.poster_path : "",
                 overview: props.isEditMovieForm ? props.movie.overview : "",
                 runtime: props.isEditMovieForm ? props.movie.runtime : "",
-                genres: props.isEditMovieForm ? props.movie.genres : [],
+                // genres: props.isEditMovieForm ? props.movie.genres : [],
             }}
             validateOnChange={false}
             validate={values => {
@@ -175,11 +175,11 @@ const MovieForm = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
      if (ownProps.isEditMovieForm) {
-        const movieIndex = state.moviesList.findIndex(movie => movie.id === ownProps.movieId);
+        const movieIndex = state.movieReducer.moviesList.findIndex(movie => movie.id === ownProps.movieId);
 
         let currentMovie = null;
         if (movieIndex !== -1) {
-            currentMovie = state.moviesList[movieIndex];
+            currentMovie = state.movieReducer.moviesList[movieIndex];
         }
 
         return {

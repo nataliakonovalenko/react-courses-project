@@ -7,14 +7,15 @@ import {
     SET_TOTAL_AMOUNT,
     SORT_MOVIES,
     ADD_MOVIE,
-} from "./actionTypes";
-import api from "../api/api";
+    OPEN_MOVIE_DETAILS
+} from "./action-types";
+import api from "../../api/api";
 
 export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, payload: { moviesList }});
 export const setTotalAmount = (totalAmount) => ({type: SET_TOTAL_AMOUNT, payload: { totalAmount }});
 export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
 export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
-export const setAddMovie = (movie) => ({type: ADD_MOVIE, payload: { movie }});
+export const openMovieDetails = (movie) => ({type: OPEN_MOVIE_DETAILS, payload: { movie }});
 
 export const getMoviesList = () => {
     return (dispatch) => {
@@ -72,7 +73,12 @@ export const editMovie = (formData) => {
 export const addMovie = (formData) => {
     return (dispatch) => {
         return api.addMovie(formData).then((movie) => {
-            dispatch(setAddMovie(movie));
+            dispatch({
+                type: ADD_MOVIE,
+                payload: {
+                    movie
+                }
+            });
 
             return movie;
         }).catch((error) => {
@@ -101,3 +107,4 @@ export const filterMoviesList = (filter) => {
         });
     }
 };
+

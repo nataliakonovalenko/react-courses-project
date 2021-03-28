@@ -7,14 +7,16 @@ import {
     SET_TOTAL_AMOUNT,
     FILTER_MOVIES,
     ADD_MOVIE,
-} from "./actionTypes"
+    OPEN_MOVIE_DETAILS
+} from "./action-types"
 
 const initialState = {
     moviesList: [],
-    totalAmount: null
+    totalAmount: null,
+    detailsLayoutMovie: null
 };
 
-export default function movieReducer(state = initialState, {type, payload}) {
+export default function reducer(state = initialState, {type, payload}) {
     switch (type) {
         case LOAD_MOVIE_LIST_SUCCESS:
             return {
@@ -86,6 +88,12 @@ export default function movieReducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 moviesList: payload.moviesList
+            };
+
+        case OPEN_MOVIE_DETAILS:
+            return {
+                ...state,
+                detailsLayoutMovie: payload.movie
             };
         default:
             return state

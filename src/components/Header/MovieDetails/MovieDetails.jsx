@@ -1,9 +1,8 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./movie-details.scss";
-import MovieContext from "../../../MovieContext";
 
-const MovieDetails = () => {
-    const {movie} = useContext(MovieContext);
+const MovieDetails = props => {
+    const {movie} = props;
 
     if (!movie) {
         return null

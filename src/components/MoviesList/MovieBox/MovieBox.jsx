@@ -1,15 +1,15 @@
-import React, {useState, useContext, useCallback} from "react";
+import React, {useState, useCallback} from "react";
 import PropTypes from "prop-types";
 import "./movie-box.scss"
 import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
-import MovieContext from "../../../MovieContext"
-import ModalContext from "../../../ModalContext"
 import { DateTime } from "luxon";
+import {connect} from "react-redux";
+import { bindActionCreators } from 'redux'
+import {showModal} from "../../../redux/modal/action-creators";
+import { openMovieDetails } from "../../../redux/movie/action-creators";
 
-const MovieBox = (props) => {
+const MovieBoxComponent = (props) => {
     const [movieDropdown, setMovieDropdown] = useState(false);
-    const {setModalData, setModalToShow} = useContext(ModalContext);
-    const {setMovie} = useContext(MovieContext);
 
     const showDropdown = () => {
         setMovieDropdown(true);
@@ -20,13 +20,11 @@ const MovieBox = (props) => {
     };
 
     const handleEditAction = useCallback(() => {
-        setModalData({movieId: props.movie.id});
-        setModalToShow('edit');
+        props.showModal('edit', {movieId: props.movie.id});
     }, [props.movie]);
 
     const handleDeleteAction = useCallback(() => {
-        setModalData({movieId: props.movie.id});
-        setModalToShow('delete');
+        props.showModal('delete', {movieId: props.movie.id});
     }, [props.movie]);
 
     const {poster_path, title, genres, release_date} = props.movie;
@@ -35,7 +33,7 @@ const MovieBox = (props) => {
         <div className="movie-box">
             <img src={poster_path} alt=""/>
             <div className="movie-description" onClick={() => {
-                setMovie(props.movie);
+                props.openMovieDetails(props.movie);
             }}>
                 <div className="movie-heading">
                     <h2>{title}</h2>
@@ -63,9 +61,13 @@ const MovieBox = (props) => {
     )
 };
 
-export default MovieBox;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ showModal, openMovieDetails }, dispatch)
+};
 
-MovieBox.propTypes = {
+const MovieBox = connect(null, mapDispatchToProps)(MovieBoxComponent);
+
+MovieBoxComponent.propTypes = {
     movie: PropTypes.exact({
         poster_path: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
@@ -81,3 +83,5 @@ MovieBox.propTypes = {
         runtime: PropTypes.number.isRequired,
     }),
 };
+
+export default MovieBox;

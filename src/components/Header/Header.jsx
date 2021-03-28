@@ -1,18 +1,17 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./header.scss";
 import Logo from "../Logo/Logo";
 import HeroImage from "../../assets/hero-img.jpg";
 import SearchForm from "./SearchForm/SearchForm";
 import Button from "../Button/Button";
 import MovieDetails from "./MovieDetails/MovieDetails";
-import ModalContext from "../../ModalContext";
+import {bindActionCreators} from "redux";
+import {showModal} from "../../redux/modal/action-creators";
+import {connect} from "react-redux";
 
-const Header = (props) => {
-    const {setModalToShow, setModalData} = useContext(ModalContext);
-
+const HeaderComponent = (props) => {
     const handleAddMovie = () => {
-        setModalData({});
-        setModalToShow('add');
+        props.showModal('add');
     };
 
     return (
@@ -23,7 +22,7 @@ const Header = (props) => {
                     <Logo/>
                     <Button className="add-movie" title="+ Add movie" onButtonClick={handleAddMovie}/>
                 </div>
-                <MovieDetails/>
+                <MovieDetails movie={props.detailsLayoutMovie} />
                 {/*<div className="search-block">*/}
                 {/*    <h1>Find your movie</h1>*/}
                 {/*    <SearchForm/>*/}
@@ -32,5 +31,17 @@ const Header = (props) => {
         </header>
     )
 };
+
+const mapStateToProps = (state) => {
+    return {
+        detailsLayoutMovie: state.movieReducer.detailsLayoutMovie
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ showModal }, dispatch)
+};
+
+const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);
 
 export default Header;
