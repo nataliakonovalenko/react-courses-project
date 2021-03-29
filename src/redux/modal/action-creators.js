@@ -1,4 +1,4 @@
-import {CLOSE_MODAL, SHOW_MODAL} from './action-types';
+import {CLOSE_MODAL, SHOW_MODAL} from "./action-types";
 
 export const showModal = (modalToShow, modalData) => ({
     type: SHOW_MODAL,

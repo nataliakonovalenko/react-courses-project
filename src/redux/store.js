@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware, combineReducers} from "redux";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 import modalReducer from "./modal/reducer";
 import movieReducer from "./movie/reducer";
 

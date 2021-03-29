@@ -10,12 +10,12 @@ const MovieForm = (props) => {
     const selectOptions = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
     const handleFormikSubmit = (values, { setSubmitting }) => {
-        const date = DateTime.fromFormat(values.release_date, "dd/MM/y");
+        const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y");
 
         setSubmitting(true);
 
         const formData = Object.assign({}, props.movie, values, {
-            release_date: date,
+            releaseDate: date,
             runtime: Number(values.runtime),
         });
 
@@ -46,7 +46,7 @@ const MovieForm = (props) => {
         <Formik
             initialValues={{
                 title: props.isEditMovieForm ? props.movie.title : "",
-                release_date: props.isEditMovieForm ? props.movie.release_date.toFormat("dd/MM/y") : "",
+                releaseDate: props.isEditMovieForm ? props.movie.releaseDate.toFormat("dd/MM/y") : "",
                 poster_path: props.isEditMovieForm ? props.movie.poster_path : "",
                 overview: props.isEditMovieForm ? props.movie.overview : "",
                 runtime: props.isEditMovieForm ? props.movie.runtime : "",
@@ -56,10 +56,10 @@ const MovieForm = (props) => {
             validate={values => {
                 const errors = {};
 
-                const date = DateTime.fromFormat(values.release_date, "dd/MM/y")
+                const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y")
 
                 if (!date.isValid) {
-                    errors.release_date = "Date is invalid";
+                    errors.releaseDate = "Date is invalid";
                 }
 
                 return errors;
@@ -105,14 +105,14 @@ const MovieForm = (props) => {
                             <input
                                 id="Release date"
                                 type="text"
-                                name="release_date"
+                                name="releaseDate"
                                 placeholder="Select Date"
-                                value={values.release_date}
+                                value={values.releaseDate}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
                         </FormRow>
-                        {errors.release_date && touched.release_date && errors.release_date}
+                        {errors.releaseDate && touched.releaseDate && errors.releaseDate}
                         <FormRow label="Movie URL">
                             <input
                                 id="Movie URL"

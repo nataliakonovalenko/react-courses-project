@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 
 const HeaderComponent = (props) => {
     const handleAddMovie = () => {
-        props.showModal('add');
+        props.showModal("add");
     };
 
     return (

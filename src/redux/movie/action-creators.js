@@ -34,7 +34,7 @@ export const getMoviesList = () => {
 export const deleteMovie = (movieId) => {
     return (dispatch) => {
         dispatch({
-            type: 'DELETE_MOVIE_LIST_START'
+            type: "DELETE_MOVIE_LIST_START"
         });
 
         api.deleteMovie(`${movieId}`).then(() => {
@@ -46,7 +46,7 @@ export const deleteMovie = (movieId) => {
             });
         }).catch((error) => {
             dispatch({
-                type: 'DELETE_MOVIE_LIST_START_ERROR',
+                type: "DELETE_MOVIE_LIST_START_ERROR",
                 payload: error
             });
         });

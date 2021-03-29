@@ -4,7 +4,7 @@ import "./movie-box.scss"
 import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
 import { DateTime } from "luxon";
 import {connect} from "react-redux";
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from "redux";
 import {showModal} from "../../../redux/modal/action-creators";
 import { openMovieDetails } from "../../../redux/movie/action-creators";
 
@@ -20,14 +20,14 @@ const MovieBoxComponent = (props) => {
     };
 
     const handleEditAction = useCallback(() => {
-        props.showModal('edit', {movieId: props.movie.id});
+        props.showModal("edit", {movieId: props.movie.id});
     }, [props.movie]);
 
     const handleDeleteAction = useCallback(() => {
-        props.showModal('delete', {movieId: props.movie.id});
+        props.showModal("delete", {movieId: props.movie.id});
     }, [props.movie]);
 
-    const {poster_path, title, genres, release_date} = props.movie;
+    const {poster_path, title, genres, releaseDate} = props.movie;
 
     return (
         <div className="movie-box">
@@ -37,9 +37,9 @@ const MovieBoxComponent = (props) => {
             }}>
                 <div className="movie-heading">
                     <h2>{title}</h2>
-                    <span className="movie-title">{genres.join(', ')}</span>
+                    <span className="movie-title">{genres.join(", ")}</span>
                 </div>
-                <span className="movie-year">{release_date.toFormat('y')}</span>
+                <span className="movie-year">{releaseDate.toFormat("y")}</span>
             </div>
             <div className="movie-dropdown">
                 <button type="button" onClick={showDropdown} className="movie-edit-icon"></button>
@@ -72,11 +72,11 @@ MovieBoxComponent.propTypes = {
         poster_path: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-        release_date: PropTypes.instanceOf(DateTime).isRequired,
+        releaseDate: PropTypes.instanceOf(DateTime).isRequired,
         id: PropTypes.number.isRequired,
         tagline: PropTypes.string.isRequired,
-        vote_average: PropTypes.number.isRequired,
-        vote_count: PropTypes.number.isRequired,
+        voteAverage: PropTypes.number.isRequired,
+        voteCount: PropTypes.number.isRequired,
         overview: PropTypes.string.isRequired,
         budget: PropTypes.number.isRequired,
         revenue: PropTypes.number.isRequired,

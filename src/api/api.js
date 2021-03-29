@@ -3,15 +3,37 @@ import { DateTime } from "luxon";
 import React from "react";
 
 const mapBackendMovieToAppMovie = (movie) => {
-    return Object.assign({},  movie, {
-        release_date: DateTime.fromFormat(movie.release_date, "y-MM-dd"),
-    })
+    return {
+        releaseDate: DateTime.fromFormat(movie.release_date, "y-MM-dd"),
+        id: movie.id,
+        title: movie.title,
+        tagline: movie.tagline,
+        voteAverage: movie.vote_average,
+        voteCount: movie.vote_count,
+        poster_path: movie.poster_path,
+        overview: movie.overview,
+        budget: movie.budget,
+        revenue: movie.revenue,
+        genres: movie.genres,
+        runtime: movie.runtime
+    }
 };
 
 const mapAppMovieToBackendMovie = (movie) => {
-    return Object.assign( {}, movie, {
-        release_date: movie.release_date.toFormat("y-MM-dd"),
-    })
+    return {
+        release_date: movie.releaseDate.toFormat("y-MM-dd"),
+        id: movie.id,
+        title: movie.title,
+        tagline: movie.tagline,
+        vote_average: movie.voteAverage,
+        vote_count: movie.voteCount,
+        poster_path: movie.poster_path,
+        overview: movie.overview,
+        budget: movie.budget,
+        revenue: movie.revenue,
+        genres: movie.genres,
+        runtime: movie.runtime
+    }
 };
 
 class Api {
@@ -35,11 +57,11 @@ class Api {
     }
 
     editMovie(movie) {
-        return this.instance.put('/', mapAppMovieToBackendMovie(movie));
+        return this.instance.put("/", mapAppMovieToBackendMovie(movie));
     }
 
     addMovie(movie) {
-        return this.instance.post('/', mapAppMovieToBackendMovie(movie));
+        return this.instance.post("/", mapAppMovieToBackendMovie(movie));
     }
 
     deleteMovie(data){
@@ -47,7 +69,7 @@ class Api {
     }
 
     sortMovies(sortByParam, sortOrderParam){
-        return this.instance.get('/', {
+        return this.instance.get("/", {
             params: {
                 sortBy: sortByParam,
                 sortOrder: sortOrderParam
@@ -65,7 +87,7 @@ class Api {
     }
 
     filterMovies(filter){
-        return this.instance.get('/', {
+        return this.instance.get("/", {
             params: {
                 filter: filter
             }
