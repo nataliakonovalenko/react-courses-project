@@ -7,7 +7,6 @@ const SortBox = (props) => {
     const selectOptions = {
         release_date: "Release Date",
         vote_average: "Rating",
-        genres: "Genre"
     };
     const [sortParam, setSortParam] = useState(selectOptions[0]);
     const [sortOrder, setSortOrder] = useState("desc");
