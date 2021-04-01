@@ -50,24 +50,9 @@ export default function reducer(state = initialState, {type, payload}) {
                 ...state
             };
         case EDIT_MOVIE:
-            const movieToEditIndex = state.moviesList.findIndex(movie => movie.id === payload.formData.id);
-
-            if (movieToEditIndex !== -1) {
-                const currentMovie = state.moviesList[movieToEditIndex];
-
-                let newMovieData = Object.assign( {}, currentMovie, payload.formData);
-                const moviesList = state.moviesList.slice(0);
-
-                moviesList.splice(movieToEditIndex, 1, newMovieData);
-
-                return {
-                    ...state,
-                    moviesList
-                }
-            }
-
             return {
-                ...state
+                ...state,
+                moviesList: state.moviesList.map(movie => movie.id === payload.formData.id ? payload.formData : movie)
             };
         case ADD_MOVIE:
             const moviesList = state.moviesList;
