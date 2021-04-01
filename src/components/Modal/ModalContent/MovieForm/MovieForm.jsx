@@ -178,8 +178,6 @@ const MovieForm = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('state', state);
-    console.log('ownProps', ownProps);
     const movieIndex = state.movie.moviesList.findIndex(movie => movie.id === ownProps.movieId);
 
     let currentMovie = null;
