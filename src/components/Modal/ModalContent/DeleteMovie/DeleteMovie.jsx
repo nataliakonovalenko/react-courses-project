@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../Button/Button";
 import {connect} from "react-redux";
-import {deleteMovie} from "../../../../redux/movie/action-creators";
+import {deleteMovie} from "../../../../store/movie/action-creators";
 
 const DeleteMovie =(props) => {
     const {modalData} = props;
@@ -24,7 +24,7 @@ const DeleteMovie =(props) => {
 
 const mapStateToProps = (state) => {
     return {
-        modalData: state.modalReducer.modalData
+        modalData: state.modal.modalData
     };
 };
 

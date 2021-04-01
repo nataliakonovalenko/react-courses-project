@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./sort-box.scss"
 import {connect} from "react-redux";
-import {sortMoviesList} from "../../redux/movie/action-creators";
+import {sortMoviesList} from "../../store/movie/action-creators";
 
 const SortBox = (props) => {
     const selectOptions = {

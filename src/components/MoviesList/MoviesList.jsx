@@ -3,7 +3,7 @@ import "./movies-list.scss";
 import MovieBox from "./MovieBox/MovieBox";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux"
-import {getMoviesList} from "../../redux/movie/action-creators";
+import {getMoviesList} from "../../store/movie/action-creators";
 
 const MoviesList = (props) => {
 
@@ -22,7 +22,7 @@ const MoviesList = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        moviesList: state.movieReducer.moviesList
+        moviesList: state.movie.moviesList
     };
 };
 

@@ -51,21 +51,29 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
+                data: data.data.map(mapBackendMovieToAppMovie)
             };
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     editMovie(movie) {
-        return this.instance.put("/", mapAppMovieToBackendMovie(movie));
+        return this.instance.put("/", mapAppMovieToBackendMovie(movie)).catch((error) => {
+            console.log(error);
+        });
     }
 
     addMovie(movie) {
-        return this.instance.post("/", mapAppMovieToBackendMovie(movie));
+        return this.instance.post("/", mapAppMovieToBackendMovie(movie)).catch((error) => {
+            console.log(error);
+        });
     }
 
     deleteMovie(data){
-        return this.instance.delete(data);
+        return this.instance.delete(data).catch((error) => {
+            console.log(error);
+        });
     }
 
     sortMovies(sortByParam, sortOrderParam){
@@ -81,9 +89,11 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
+                data: data.data.map(mapBackendMovieToAppMovie)
             };
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     filterMovies(filter){
@@ -98,9 +108,11 @@ class Api {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(movie => mapBackendMovieToAppMovie(movie))
+                data: data.data.map(mapBackendMovieToAppMovie)
             };
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 }
 

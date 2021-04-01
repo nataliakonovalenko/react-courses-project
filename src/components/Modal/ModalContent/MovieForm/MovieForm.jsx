@@ -4,12 +4,14 @@ import FormRow from "../../../Forms/FormRow";
 import {connect} from "react-redux";
 import { DateTime } from "luxon";
 import {Field, FieldArray, Formik} from "formik";
-import {editMovie, addMovie} from "../../../../redux/movie/action-creators";
+import {editMovie, addMovie} from "../../../../store/movie/action-creators";
+
+const selectOptions = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
 const MovieForm = (props) => {
-    const selectOptions = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
     const handleFormikSubmit = (values, { setSubmitting }) => {
+
         const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y");
 
         setSubmitting(true);
@@ -42,6 +44,18 @@ const MovieForm = (props) => {
         }
     };
 
+    const validation = (values) => {
+        const errors = {};
+
+        const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y")
+
+        if (!date.isValid) {
+            errors.releaseDate = "Date is invalid";
+        }
+
+        return errors;
+    };
+
     return(
         <Formik
             initialValues={{
@@ -53,17 +67,7 @@ const MovieForm = (props) => {
                 // genres: props.isEditMovieForm ? props.movie.genres : [],
             }}
             validateOnChange={false}
-            validate={values => {
-                const errors = {};
-
-                const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y")
-
-                if (!date.isValid) {
-                    errors.releaseDate = "Date is invalid";
-                }
-
-                return errors;
-            }}
+            validate={validation}
             onSubmit={handleFormikSubmit}
         >
             {({
@@ -77,7 +81,7 @@ const MovieForm = (props) => {
                   isSubmitting,
               }) => {
                 return (
-                    <form className="movie-form">
+                    <form className="movie-form" onSubmit={handleSubmit}>
                         {isSubmitting ? "...submiting" : null}
                         <h1>
                             {props.isEditMovieForm ? (
@@ -163,8 +167,8 @@ const MovieForm = (props) => {
                         <div className="buttons-holder">
                             <Button type="button" className="btn-outline" title="reset" onButtonClick={() => {console.log("reset")}} />
                             {props.isEditMovieForm ? (
-                                <Button title="save" type="button" onButtonClick={(e) => {submitForm(); e.preventDefault();}} />
-                            ): <Button title="submit" type="submit" onButtonClick={(e) => {submitForm(); e.preventDefault();}}/> }
+                                <Button title="save" type="submit" />
+                            ): <Button title="submit" type="submit" /> }
                         </div>
                     </form>
                 )
@@ -174,20 +178,18 @@ const MovieForm = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-     if (ownProps.isEditMovieForm) {
-        const movieIndex = state.movieReducer.moviesList.findIndex(movie => movie.id === ownProps.movieId);
+    console.log('state', state);
+    console.log('ownProps', ownProps);
+    const movieIndex = state.movie.moviesList.findIndex(movie => movie.id === ownProps.movieId);
 
-        let currentMovie = null;
-        if (movieIndex !== -1) {
-            currentMovie = state.movieReducer.moviesList[movieIndex];
-        }
+    let currentMovie = null;
+    if (movieIndex !== -1) {
+        currentMovie = state.movie.moviesList[movieIndex];
+    }
 
-        return {
-            movie: currentMovie
-        }
-     } else {
-         return {}
-     }
+    return {
+        movie: currentMovie
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {

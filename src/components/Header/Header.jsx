@@ -6,7 +6,7 @@ import SearchForm from "./SearchForm/SearchForm";
 import Button from "../Button/Button";
 import MovieDetails from "./MovieDetails/MovieDetails";
 import {bindActionCreators} from "redux";
-import {showModal} from "../../redux/modal/action-creators";
+import {showModal} from "../../store/modal/action-creators";
 import {connect} from "react-redux";
 
 const HeaderComponent = (props) => {
@@ -34,7 +34,7 @@ const HeaderComponent = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        detailsLayoutMovie: state.movieReducer.detailsLayoutMovie
+        detailsLayoutMovie: state.movie.detailsLayoutMovie
     };
 };
 

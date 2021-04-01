@@ -5,8 +5,8 @@ import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
 import { DateTime } from "luxon";
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
-import {showModal} from "../../../redux/modal/action-creators";
-import { openMovieDetails } from "../../../redux/movie/action-creators";
+import {showModal} from "../../../store/modal/action-creators";
+import { openMovieDetails } from "../../../store/movie/action-creators";
 
 const MovieBoxComponent = (props) => {
     const [movieDropdown, setMovieDropdown] = useState(false);

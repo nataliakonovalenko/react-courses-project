@@ -20,7 +20,7 @@ const Main = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        totalAmount: state.movieReducer.totalAmount
+        totalAmount: state.movie.totalAmount
     };
 };
 

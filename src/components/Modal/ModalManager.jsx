@@ -4,7 +4,7 @@ import MovieForm from "./ModalContent/MovieForm/MovieForm";
 import DeleteMovie from "./ModalContent/DeleteMovie/DeleteMovie";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {closeModal} from "../../redux/modal/action-creators";
+import {closeModal} from "../../store/modal/action-creators";
 
 const ModalManager = (props) => {
     const { modalData, modalToShow, closeModal } = props;
@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        modalToShow: state.modalReducer.modalToShow,
-        modalData: state.modalReducer.modalData,
+        modalToShow: state.modal.modalToShow,
+        modalData: state.modal.modalData,
     };
 };
 
