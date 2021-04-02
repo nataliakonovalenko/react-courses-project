@@ -3,16 +3,25 @@ import "./main.scss"
 import FilterList from "../FilterList/FilterList";
 import SortBox from "../SortBox/SortBox";
 import MoviesList from "../MoviesList/MoviesList";
+import {connect} from "react-redux";
 
-export default function Main(props) {
+const Main = (props) => {
     return(
         <div className="container">
             <div className="top-panel">
                 <FilterList/>
                 <SortBox />
             </div>
-            <span className="filter-title">39 movies found</span>
+            <span className="filter-title">{props.totalAmount} movies found</span>
             <MoviesList onAction={props.onAction} />
         </div>
     )
-}
+};
+
+const mapStateToProps = (state) => {
+    return {
+        totalAmount: state.movie.totalAmount
+    };
+};
+
+export default connect(mapStateToProps)(Main);

@@ -19,15 +19,33 @@
   background: 0;
   margin: 0;
   width: 150px;
+  padding: 0 20px 0 0;
 
   &:after {
-    right: 0;
-    border-width: 6px;
+    display: none;
   }
 
   select {
     min-height: 0;
-    padding: 0 20px 0 0;
     text-transform: uppercase;
+    padding: 0;
+  }
+
+  .sort-order {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border:8px solid transparent;
+    border-color: $link-color transparent transparent transparent;
+    text-indent: -9999px;
+
+    &.asc {
+      top: 25%;
+      border-color: transparent transparent $link-color transparent;
+    }
   }
 }

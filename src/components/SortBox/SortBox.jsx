@@ -1,17 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
 import "./sort-box.scss"
+import {connect} from "react-redux";
+import {sortMoviesList} from "../../store/movie/action-creators";
 
-export default function SortBox() {
+const SortBox = (props) => {
+    const selectOptions = {
+        release_date: "Release Date",
+        vote_average: "Rating",
+    };
+    const [sortParam, setSortParam] = useState(selectOptions[0]);
+    const [sortOrder, setSortOrder] = useState("desc");
+
+    const handleOptionChange = (e) => {
+        let sortBy = e.target.value;
+        setSortParam(sortBy);
+        props.sortMovies(sortBy, sortOrder);
+    };
+
+    const handleSortOrder = () => {
+        let sortingOrder = sortOrder;
+
+        if (sortingOrder === "desc") {
+            sortingOrder = "asc";
+        } else {
+            sortingOrder = "desc";
+        }
+
+        setSortOrder(sortingOrder);
+        props.sortMovies(sortParam, sortingOrder);
+    };
+
     return(
         <div className="sort-box">
             <span className="sort-title">Sort by</span>
             <div className="select sort-select">
-                {/*<div className="sort-select__title">Release Date</div>*/}
-                <select>
-                    <option>Release Date</option>
-                    <option>Rating</option>
+                <select onChange={handleOptionChange}>
+                    {Object.keys(selectOptions).map(function(key, index) {
+                        return <option key={`option-${index}`} value={key}>{selectOptions[key]}</option>
+                    })}
                 </select>
+                <span className={`sort-order ${sortOrder === "desc"? "desc" : "asc"}`} onClick={handleSortOrder}>sort icon</span>
             </div>
         </div>
     )
-}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        sortMovies: (sortByParam, orderByParam) => {
+            dispatch(sortMoviesList(sortByParam, orderByParam))
+        }
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SortBox);

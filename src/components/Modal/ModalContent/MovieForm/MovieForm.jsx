@@ -1,78 +1,204 @@
-import React, {useState, useContext} from "react";
+import React from "react";
 import Button from "../../../Button/Button";
 import FormRow from "../../../Forms/FormRow";
-import ModalContext from "../../../../ModalContext";
+import {connect} from "react-redux";
+import { DateTime } from "luxon";
+import {Field, FieldArray, Formik} from "formik";
+import {editMovie, addMovie} from "../../../../store/movie/action-creators";
 
-function useResetInput(initialValue) {
-    const[value, setValue] = useState(initialValue);
+const selectOptions = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
-    const onChange = e => {
-        setValue(e.target.value);
+const MovieForm = (props) => {
+
+    const handleFormikSubmit = (values, { setSubmitting }) => {
+
+        const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y");
+
+        setSubmitting(true);
+
+        const formData = Object.assign({}, props.movie, values, {
+            releaseDate: date,
+            runtime: Number(values.runtime),
+        });
+
+        if (props.isEditMovieForm) {
+            props.editCurrentMovie(formData).then((data) => {
+                setSubmitting(false);
+
+                props.onClose();
+            }, (err) => {
+                setSubmitting(false);
+
+                console.log("err", err);
+            });
+        } else {
+            props.addMovie(formData).then((data) => {
+                setSubmitting(false);
+
+                props.onClose();
+            }, (err) => {
+                setSubmitting(false);
+
+                console.log("err", err);
+            });
+        }
     };
 
-    const reset = () => setValue('');
+    const validation = (values) => {
+        const errors = {};
 
-    return {
-        value,
-        onChange,
-        reset
-    }
-}
+        const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y")
 
-export default function MovieForm(props) {
-    const {modalData} = useContext(ModalContext);
+        if (!date.isValid) {
+            errors.releaseDate = "Date is invalid";
+        }
 
-    const selectOptions = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-
-    const inputTitle = useResetInput(modalData.title || '');
-    const inputMovieURL = useResetInput(modalData.url || '');
-    const inputOverview = useResetInput(modalData.overview || '');
-    const inputRuntime = useResetInput(modalData.runtime || '');
-
-    const handleFormReset = () => {
-        inputTitle.reset();
-        inputMovieURL.reset();
-        inputOverview.reset();
-        inputRuntime.reset();
+        return errors;
     };
 
     return(
-        <form action="#" className="movie-form">
-            <h1>
-                {props.isEditMovieForm ? (
-                    "Edit"
-                ): "Add"} movie
-            </h1>
-            <FormRow label="Title">
-                <input id="Title" placeholder="Title" type="text" onChange={inputTitle.onChange} value={inputTitle.value} />
-            </FormRow>
-            <FormRow label="Release date">
-                {/*TODO update date*/}
-                <input id="Release date" placeholder="Select date" type="date" {...(props.isEditMovieForm && { defaultValue: "10/12/2021" })} />
-            </FormRow>
-            <FormRow label="Movie URL">
-                <input id="Movie URL" placeholder="Movie URL here" type="text" onChange={inputMovieURL.onChange} value={inputMovieURL.value} />
-            </FormRow>
-            <FormRow label="Genre">
-                {/*TODO update select options*/}
-                <div className="select">
-                    <select id="genre">
-                        {selectOptions.map((option, index) => <option key={`option-${index}`} value={index}>{option}</option>)}
-                    </select>
-                </div>
-            </FormRow>
-            <FormRow label="Overview">
-                <input id="Overview" placeholder="Overview" type="text" onChange={inputOverview.onChange} value={inputOverview.value} />
-            </FormRow>
-            <FormRow label="Runtime">
-                <input id="Runtime" placeholder="Runtime" type="text" onChange={inputRuntime.onChange} value={inputRuntime.value} />
-            </FormRow>
-            <div className="buttons-holder">
-                <Button type="button" className="btn-outline" title="reset" onButtonClick={handleFormReset} />
-                {props.isEditMovieForm ? (
-                    <Button title="save" type="button"/>
-                ): <Button title="submit" type="submit"/> }
-            </div>
-        </form>
+        <Formik
+            initialValues={{
+                title: props.isEditMovieForm ? props.movie.title : "",
+                releaseDate: props.isEditMovieForm ? props.movie.releaseDate.toFormat("dd/MM/y") : "",
+                poster_path: props.isEditMovieForm ? props.movie.poster_path : "",
+                overview: props.isEditMovieForm ? props.movie.overview : "",
+                runtime: props.isEditMovieForm ? props.movie.runtime : "",
+                // genres: props.isEditMovieForm ? props.movie.genres : [],
+            }}
+            validateOnChange={false}
+            validate={validation}
+            onSubmit={handleFormikSubmit}
+        >
+            {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  submitForm,
+                  isSubmitting,
+              }) => {
+                return (
+                    <form className="movie-form" onSubmit={handleSubmit}>
+                        {isSubmitting ? "...submiting" : null}
+                        <h1>
+                            {props.isEditMovieForm ? (
+                                "Edit"
+                            ): "Add"} movie
+                        </h1>
+                        {props.isEditMovieForm ? (
+                            <>
+                                <span className="label">Movie ID</span>
+                                <div className="form-text">{props.movie.id}</div>
+                            </>
+                        ) : null}
+                        <FormRow label="Title">
+                            <input
+                                id="Title"
+                                type="text"
+                                name="title"
+                                placeholder="Title"
+                                value={values.title}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormRow>
+                        <FormRow label="Release date">
+                            <input
+                                id="Release date"
+                                type="text"
+                                name="releaseDate"
+                                placeholder="Select Date"
+                                value={values.releaseDate}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormRow>
+                        {errors.releaseDate && touched.releaseDate && errors.releaseDate}
+                        <FormRow label="Movie URL">
+                            <input
+                                id="Movie URL"
+                                type="text"
+                                name="poster_path"
+                                placeholder="Movie URL here"
+                                value={values.poster_path}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormRow>
+                        {/*<FormRow label="Genre">*/}
+                        {/*    <div className="select">*/}
+                        {/*        <FieldArray*/}
+                        {/*            as="select"*/}
+                        {/*            name="genres"*/}
+                        {/*            multiple={true}*/}
+                        {/*            onChange={handleChange}*/}
+                        {/*            onBlur={handleBlur}*/}
+                        {/*        >*/}
+                        {/*            {values.genres.map((option, index) => <option key={`option-${index}`} value={index}>{option}</option>)}*/}
+                        {/*        </FieldArray>*/}
+                        {/*    </div>*/}
+                        {/*</FormRow>*/}
+                        <FormRow label="Overview">
+                            <input
+                                id="Overview"
+                                type="text"
+                                name="overview"
+                                placeholder="Overview here"
+                                value={values.overview}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormRow>
+                        <FormRow label="Runtime">
+                            <input
+                                id="Runtime"
+                                type="text"
+                                name="runtime"
+                                placeholder="Runtime here"
+                                value={values.runtime}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormRow>
+
+                        <div className="buttons-holder">
+                            <Button type="button" className="btn-outline" title="reset" onButtonClick={() => {console.log("reset")}} />
+                            {props.isEditMovieForm ? (
+                                <Button title="save" type="submit" />
+                            ): <Button title="submit" type="submit" /> }
+                        </div>
+                    </form>
+                )
+            }}
+        </Formik>
     )
 };
+
+const mapStateToProps = (state, ownProps) => {
+    const movieIndex = state.movie.moviesList.findIndex(movie => movie.id === ownProps.movieId);
+
+    let currentMovie = null;
+    if (movieIndex !== -1) {
+        currentMovie = state.movie.moviesList[movieIndex];
+    }
+
+    return {
+        movie: currentMovie
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        editCurrentMovie: (movieData) => {
+            return dispatch(editMovie(movieData))
+        },
+        addMovie: (movieData) => {
+            return dispatch(addMovie(movieData))
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieForm);
