@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "./Modal";
-import MovieForm from "./ModalContent/MovieForm/MovieForm";
+import EnhancedForm from "./ModalContent/MovieForm/MovieForm";
 import DeleteMovie from "./ModalContent/DeleteMovie/DeleteMovie";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
@@ -10,9 +10,9 @@ const ModalManager = (props) => {
     const { modalData, modalToShow, closeModal } = props;
 
     const modals={
-        edit: () => <MovieForm isEditMovieForm={true} movieId={modalData.movieId} onClose={() => {handleClose()}} />,
+        edit: () => <EnhancedForm isEditMovieForm={true} movieId={modalData.movieId} onClose={() => {handleClose()}} />,
         delete: () => <DeleteMovie onConfirm={() => {handleClose()}} />,
-        add: () => <MovieForm onClose={() => {handleClose()}} />
+        add: () => <EnhancedForm onClose={() => {handleClose()}} />
     };
 
     const handleClose = () => {
