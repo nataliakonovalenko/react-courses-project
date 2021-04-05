@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "../../../Button/Button";
 import FormRow from "../../../Forms/FormRow";
 import {connect} from "react-redux";
@@ -7,11 +7,14 @@ import { withFormik } from 'formik';
 import {editMovie, addMovie} from "../../../../store/movie/action-creators";
 import CustomSelect from "../../../Forms/Select";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const validation =  Yup.object().shape({
     title: Yup.string().required("Title is required"),
-    /*releaseDate: Yup.string().required("Release date is required"),*/
     posterPath: Yup.string().required("Poster URL is required"),
+    genres: Yup.array().min(1, "Genres is required"),
     overview: Yup.string().required("Overview is required"),
     runtime: Yup.number().required("Runtime minimum is 0").positive().integer().min(0),
 });
@@ -71,17 +74,15 @@ const MovieForm = (props) => {
                 />
             </FormRow>
             {touched.title && errors.title ? (
-                <div>{errors.title}</div>
+                <div className="error">{errors.title}</div>
             ) : null}
             <FormRow label="Release date">
-                <input
+                <DatePicker
+                    dateFormat="dd/MM/yyyy"
                     id="Release date"
-                    type="text"
                     name="releaseDate"
-                    placeholder="Select Date"
-                    value={values.releaseDate}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    selected={values.releaseDate}
+                    onChange={date => setFieldValue('releaseDate', date)}
                 />
             </FormRow>
             <FormRow label="Movie URL">
@@ -96,7 +97,7 @@ const MovieForm = (props) => {
                 />
             </FormRow>
             {touched.posterPath && errors.posterPath ? (
-                <div>{errors.posterPath}</div>
+                <div className="error">{errors.posterPath}</div>
             ) : null}
             <FormRow label="Genre">
                 <CustomSelect
@@ -107,6 +108,9 @@ const MovieForm = (props) => {
                     onBlur={setFieldTouched}
                 />
             </FormRow>
+            {touched.genres && errors.genres ? (
+                <div className="error">{errors.genres}</div>
+            ) : null}
             <FormRow label="Overview">
                 <input
                     id="Overview"
@@ -119,7 +123,7 @@ const MovieForm = (props) => {
                 />
             </FormRow>
             {touched.overview && errors.overview ? (
-                <div>{errors.overview}</div>
+                <div className="error">{errors.overview}</div>
             ) : null}
             <FormRow label="Runtime">
                 <input
@@ -133,7 +137,7 @@ const MovieForm = (props) => {
                 />
             </FormRow>
             {touched.runtime && errors.runtime ? (
-                <div>{errors.runtime}</div>
+                <div className="error">{errors.runtime}</div>
             ) : null}
 
             <div className="buttons-holder">
@@ -149,7 +153,7 @@ const MovieForm = (props) => {
 const EnhancedForm  = withFormik({
     mapPropsToValues: (props ) => ({
         title: props.isEditMovieForm ? props.movie.title : "",
-        releaseDate: props.isEditMovieForm ? props.movie.releaseDate.toFormat("dd/MM/y") : "",
+        releaseDate: props.isEditMovieForm ? new Date(props.movie.releaseDate.toFormat("y/MM/dd")) : new Date(),
         posterPath: props.isEditMovieForm ? props.movie.posterPath : "",
         overview: props.isEditMovieForm ? props.movie.overview : "",
         runtime: props.isEditMovieForm ? props.movie.runtime : "",
@@ -158,7 +162,7 @@ const EnhancedForm  = withFormik({
     validateOnChange: false,
     validationSchema: validation,
     handleSubmit: (values, { props, setSubmitting }) => {
-        const date = DateTime.fromFormat(values.releaseDate, "dd/MM/y");
+        const date = DateTime.fromISO(values.releaseDate.toISOString());
 
         setSubmitting(true);
 

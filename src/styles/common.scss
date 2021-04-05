@@ -56,7 +56,7 @@ input {
     line-height: 1.1;
     padding: 10px 15px;
     border-radius: 5px;
-   // margin: 0 0 1.5em;
+    margin: 0 0 1.5em;
 }
 
 .select {
@@ -124,4 +124,13 @@ h1 {
     .btn {
         margin: 0 0 0 1em;
     }
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.error {
+    color: red;
+    margin: -20px 0 20px;
 }
