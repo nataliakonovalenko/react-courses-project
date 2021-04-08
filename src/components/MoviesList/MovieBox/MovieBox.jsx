@@ -27,11 +27,11 @@ const MovieBoxComponent = (props) => {
         props.showModal("delete", {movieId: props.movie.id});
     }, [props.movie]);
 
-    const {poster_path, title, genres, releaseDate} = props.movie;
+    const {posterPath, title, genres, releaseDate} = props.movie;
 
     return (
         <div className="movie-box">
-            <img src={poster_path} alt=""/>
+            <img src={posterPath} alt=""/>
             <div className="movie-description" onClick={() => {
                 props.openMovieDetails(props.movie);
             }}>
@@ -69,7 +69,7 @@ const MovieBox = connect(null, mapDispatchToProps)(MovieBoxComponent);
 
 MovieBoxComponent.propTypes = {
     movie: PropTypes.exact({
-        poster_path: PropTypes.string.isRequired,
+        posterPath: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         genres: PropTypes.arrayOf(PropTypes.string).isRequired,
         releaseDate: PropTypes.instanceOf(DateTime).isRequired,

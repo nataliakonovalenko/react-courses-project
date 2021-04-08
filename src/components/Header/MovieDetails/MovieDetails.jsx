@@ -8,11 +8,11 @@ const MovieDetails = props => {
         return null
     }
 
-    const {poster_path, title, voteAverage, releaseDate, runtime, overview} = movie;
+    const {posterPath, title, voteAverage, releaseDate, runtime, overview} = movie;
 
     return (
         <div className="movie-details">
-            <img className="movie-img" src={poster_path} alt=""/>
+            <img className="movie-img" src={posterPath} alt=""/>
             <div className="movie-description">
                 <h1>{title} <span className="film-rating">{voteAverage}</span></h1>
                 <span className="movie-info">{releaseDate.toFormat("y")}</span>

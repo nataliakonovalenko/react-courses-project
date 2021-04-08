@@ -14,7 +14,7 @@ module.exports = {
         publicPath: '/'
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', 'css']
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -28,7 +28,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(s[ac]ss|css)$/i,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
