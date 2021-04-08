@@ -7,13 +7,15 @@ import {
     SET_TOTAL_AMOUNT,
     FILTER_MOVIES,
     ADD_MOVIE,
-    OPEN_MOVIE_DETAILS
+    OPEN_MOVIE_DETAILS,
+    LOAD_MOVIE_DETAILS
 } from "./action-types"
 
 const initialState = {
     moviesList: [],
     totalAmount: null,
-    detailsLayoutMovie: null
+    detailsLayoutMovie: null,
+    movieDetails: null
 };
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -22,6 +24,11 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 moviesList: payload.moviesList
+            };
+        case LOAD_MOVIE_DETAILS:
+            return {
+                ...state,
+                movieDetails: payload.movieDetails
             };
         case LOAD_MOVIE_LIST_START:
             return {
@@ -73,12 +80,6 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 moviesList: payload.moviesList
-            };
-
-        case OPEN_MOVIE_DETAILS:
-            return {
-                ...state,
-                detailsLayoutMovie: payload.movie
             };
         default:
             return state

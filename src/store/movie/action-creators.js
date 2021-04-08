@@ -7,7 +7,7 @@ import {
     SET_TOTAL_AMOUNT,
     SORT_MOVIES,
     ADD_MOVIE,
-    OPEN_MOVIE_DETAILS
+    LOAD_MOVIE_DETAILS
 } from "./action-types";
 import api from "../../api/api";
 
@@ -15,7 +15,6 @@ export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, pa
 export const setTotalAmount = (totalAmount) => ({type: SET_TOTAL_AMOUNT, payload: { totalAmount }});
 export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
 export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
-export const openMovieDetails = (movie) => ({type: OPEN_MOVIE_DETAILS, payload: { movie }});
 
 export const getMoviesList = () => {
     return (dispatch) => {
@@ -25,6 +24,22 @@ export const getMoviesList = () => {
         api.getMovies().then((moviesData) => {
             dispatch(setMoviesList(moviesData.data));
             dispatch(setTotalAmount(moviesData.totalAmount));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+};
+
+export const getMovie = (id) => {
+    return (dispatch) => {
+        api.getMovie(`${id}`).then((movieDetails) => {
+            console.log('movieDetails', movieDetails)
+            dispatch({
+                type: LOAD_MOVIE_DETAILS,
+                payload: {
+                    movieDetails
+                }
+            });
         }).catch((error) => {
             console.log(error);
         });

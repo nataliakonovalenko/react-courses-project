@@ -58,6 +58,29 @@ class Api {
         });
     }
 
+    getMovie(id) {
+        return this.instance.get(id).then((response) => {
+            const data = response.data;
+
+            return {
+                releaseDate: DateTime.fromFormat(data.release_date, "y-MM-dd"),
+                id: data.id,
+                title: data.title,
+                tagline: data.tagline,
+                voteAverage: data.vote_average,
+                voteCount: data.vote_count,
+                posterPath: data.poster_path,
+                overview: data.overview,
+                budget: data.budget,
+                revenue: data.revenue,
+                genres: data.genres,
+                runtime: data.runtime
+            };
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
     editMovie(movie) {
         return this.instance.put("/", mapAppMovieToBackendMovie(movie)).catch((error) => {
             console.log(error);

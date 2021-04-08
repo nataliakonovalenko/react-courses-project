@@ -6,12 +6,11 @@ import { bindActionCreators } from "redux"
 import {getMoviesList} from "../../store/movie/action-creators";
 
 const MoviesList = (props) => {
-
     useEffect(() => {
         props.getMovies();
     }, []);
 
-    const {moviesList, totalAmount} = props;
+    const {moviesList} = props;
 
     return(
         <div className="movies-list">

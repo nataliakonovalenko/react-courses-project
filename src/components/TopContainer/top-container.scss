@@ -1,0 +1,29 @@
+@import "../../styles/variables.scss";
+
+.top-container {
+  position: relative;
+  min-height: 500px;
+  border-bottom: 8px solid $bg-color-light;
+  padding: 110px 0 40px;
+}
+
+.bg-image {
+  filter: blur(3px);
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+
+  &:before {
+    content:"";
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+  }
+}

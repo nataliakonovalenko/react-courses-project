@@ -9,7 +9,7 @@ import CustomSelect from "../../../Forms/Select";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import "../../../Forms/forms.scss";
 
 const validation =  Yup.object().shape({
     title: Yup.string().required("Title is required"),

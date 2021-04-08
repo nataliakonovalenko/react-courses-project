@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../../Button/Button";
 import {connect} from "react-redux";
 import {deleteMovie} from "../../../../store/movie/action-creators";
+import "../../../Forms/forms.scss";
 
 const DeleteMovie =(props) => {
     const {modalData} = props;

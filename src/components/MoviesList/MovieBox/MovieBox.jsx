@@ -6,10 +6,11 @@ import { DateTime } from "luxon";
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import {showModal} from "../../../store/modal/action-creators";
-import { openMovieDetails } from "../../../store/movie/action-creators";
+import {useHistory} from 'react-router-dom';
 
 const MovieBoxComponent = (props) => {
     const [movieDropdown, setMovieDropdown] = useState(false);
+    const history = useHistory();
 
     const showDropdown = () => {
         setMovieDropdown(true);
@@ -30,11 +31,11 @@ const MovieBoxComponent = (props) => {
     const {posterPath, title, genres, releaseDate} = props.movie;
 
     return (
-        <div className="movie-box">
+        <div className="movie-box" onClick={() => {
+            history.push(`/film/${props.movie.id}`)
+        }}>
             <img src={posterPath} alt=""/>
-            <div className="movie-description" onClick={() => {
-                props.openMovieDetails(props.movie);
-            }}>
+            <div className="movie-description">
                 <div className="movie-heading">
                     <h2>{title}</h2>
                     <span className="movie-title">{genres.join(", ")}</span>
@@ -62,7 +63,7 @@ const MovieBoxComponent = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ showModal, openMovieDetails }, dispatch)
+    return bindActionCreators({ showModal }, dispatch)
 };
 
 const MovieBox = connect(null, mapDispatchToProps)(MovieBoxComponent);
@@ -74,12 +75,12 @@ MovieBoxComponent.propTypes = {
         genres: PropTypes.arrayOf(PropTypes.string).isRequired,
         releaseDate: PropTypes.instanceOf(DateTime).isRequired,
         id: PropTypes.number.isRequired,
-        tagline: PropTypes.string.isRequired,
-        voteAverage: PropTypes.number.isRequired,
-        voteCount: PropTypes.number.isRequired,
+        tagline: PropTypes.string,
+        voteAverage: PropTypes.number,
+        voteCount: PropTypes.number,
         overview: PropTypes.string.isRequired,
-        budget: PropTypes.number.isRequired,
-        revenue: PropTypes.number.isRequired,
+        budget: PropTypes.number,
+        revenue: PropTypes.number,
         runtime: PropTypes.number.isRequired,
     }),
 };
