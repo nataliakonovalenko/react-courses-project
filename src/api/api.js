@@ -137,6 +137,26 @@ class Api {
             console.log(error);
         });
     }
+
+    searchMovies(search, searchBy){
+        return this.instance.get("/", {
+            params: {
+                search: search,
+                searchBy: searchBy
+            }
+        }).then((response) => {
+            const data = response.data;
+
+            return {
+                limit: data.limit,
+                offset: data.offset,
+                totalAmount: data.totalAmount,
+                data: data.data.map(mapBackendMovieToAppMovie)
+            };
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 }
 
 export default new Api();

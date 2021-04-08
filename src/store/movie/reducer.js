@@ -7,8 +7,7 @@ import {
     SET_TOTAL_AMOUNT,
     FILTER_MOVIES,
     ADD_MOVIE,
-    OPEN_MOVIE_DETAILS,
-    LOAD_MOVIE_DETAILS
+    LOAD_MOVIE_DETAILS,
 } from "./action-types"
 
 const initialState = {

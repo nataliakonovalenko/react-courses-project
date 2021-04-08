@@ -7,7 +7,7 @@ import {
     SET_TOTAL_AMOUNT,
     SORT_MOVIES,
     ADD_MOVIE,
-    LOAD_MOVIE_DETAILS
+    LOAD_MOVIE_DETAILS,
 } from "./action-types";
 import api from "../../api/api";
 
@@ -33,7 +33,6 @@ export const getMoviesList = () => {
 export const getMovie = (id) => {
     return (dispatch) => {
         api.getMovie(`${id}`).then((movieDetails) => {
-            console.log('movieDetails', movieDetails)
             dispatch({
                 type: LOAD_MOVIE_DETAILS,
                 payload: {
@@ -52,7 +51,7 @@ export const deleteMovie = (movieId) => {
             type: "DELETE_MOVIE_LIST_START"
         });
 
-        api.deleteMovie(`${movieId}`).then(() => {
+        api.deleteMovie(`${movieId}`).then((response) => {
             dispatch({
                 type: DELETE_MOVIE_LIST_SUCCESS,
                 payload: {
@@ -116,6 +115,17 @@ export const filterMoviesList = (filter) => {
     return (dispatch) => {
         api.filterMovies(filter).then((moviesData) => {
             dispatch(setFilteredMoviesList(moviesData.data));
+            dispatch(setTotalAmount(moviesData.totalAmount));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+};
+
+export const searchMovies = (search, searchBy) => {
+    return (dispatch) => {
+        api.searchMovies(search, searchBy).then((moviesData) => {
+            dispatch(setMoviesList(moviesData.data));
             dispatch(setTotalAmount(moviesData.totalAmount));
         }).catch((error) => {
             console.log(error);
