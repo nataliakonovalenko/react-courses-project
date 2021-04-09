@@ -90,6 +90,7 @@ export const sortMoviesList = (sortByParam, orderByParam) => {
     return (dispatch) => {
         api.sortMovies(sortByParam, orderByParam).then((moviesData) => {
             dispatch(setSortedMoviesList(moviesData.data));
+            dispatch(setTotalAmount(moviesData.totalAmount));
         }).catch((error) => {
             console.log(error);
         });
