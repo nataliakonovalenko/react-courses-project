@@ -43,21 +43,6 @@ class Api {
         });
     }
 
-    getMovies() {
-        return this.instance.get().then((response) => {
-            const data = response.data;
-
-            return {
-                limit: data.limit,
-                offset: data.offset,
-                totalAmount: data.totalAmount,
-                data: data.data.map(mapBackendMovieToAppMovie)
-            };
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-
     getMovie(id) {
         return this.instance.get(id).then((response) => {
             const data = response.data;

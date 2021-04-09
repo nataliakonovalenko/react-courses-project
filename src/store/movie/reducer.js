@@ -12,7 +12,7 @@ import {
 
 const initialState = {
     moviesList: [],
-    totalAmount: null,
+    totalAmount: 0,
     detailsLayoutMovie: null,
     movieDetails: null
 };

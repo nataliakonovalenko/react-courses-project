@@ -1,14 +1,19 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import "./movies-list.scss";
 import MovieBox from "./MovieBox/MovieBox";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux"
-import {getMoviesList} from "../../store/movie/action-creators";
+import {useParams} from 'react-router-dom';
+import {searchMovies} from "../../store/movie/action-creators";
+
 
 const MoviesList = (props) => {
+    const {searchQuery} = useParams();
+
     useEffect(() => {
-        props.getMovies();
-    }, []);
+        if (searchQuery) {
+            props.searchMovies(searchQuery, "title");
+        }
+    }, [searchQuery]);
 
     const {moviesList} = props;
 
@@ -26,9 +31,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        getMovies: getMoviesList
-    }, dispatch);
+    return {
+        searchMovies: (search, searchBy) => {
+            dispatch(searchMovies(search, searchBy))
+        }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

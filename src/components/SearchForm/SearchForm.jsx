@@ -2,17 +2,20 @@ import React from "react";
 import "./search-form.scss"
 import Button from "../Button/Button";
 import { Formik } from 'formik';
-import {connect} from "react-redux";
-import {searchMovies} from "../../store/movie/action-creators";
+import {useHistory} from 'react-router-dom';
 
-const SearchForm = (props) => {
+const SearchForm = () => {
+    const history = useHistory();
+
     return(
         <div className="search-block">
             <h1>Find your movie</h1>
             <Formik
                 initialValues={{ search: "" }}
                 onSubmit={(values) => {
-                    props.searchMovies(values.search, "title")
+                    history.push({
+                        pathname: `/search/${values.search}`,
+                    })
                 }}
                 >
                 {props => (
@@ -33,13 +36,5 @@ const SearchForm = (props) => {
     )
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        searchMovies: (search, searchBy) => {
-            dispatch(searchMovies(search, searchBy))
-        }
-    };
-};
-
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default SearchForm;
 

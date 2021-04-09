@@ -6,13 +6,12 @@ import ModalManager from "./components/Modal/ModalManager";
 import {
     BrowserRouter as Router,
     Route,
-    Link,
     Switch,
-    Redirect,
-    useLocation
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch";
+import MovieDetails from "./pages/MovieDetails";
+import SearchResult from "./pages/SearchResult";
 
 export default function App() {
     return(
@@ -21,7 +20,8 @@ export default function App() {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/film/:id" component={Home} />
+                    <Route path="/film/:id" component={MovieDetails} />
+                    <Route path="/search/:searchQuery" component={SearchResult} />
                     <Route path="*" component={NoMatch} />
                 </Switch>
                 <Footer />

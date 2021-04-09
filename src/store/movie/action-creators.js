@@ -2,7 +2,6 @@ import {
     DELETE_MOVIE_LIST_SUCCESS,
     EDIT_MOVIE,
     FILTER_MOVIES,
-    LOAD_MOVIE_LIST_START,
     LOAD_MOVIE_LIST_SUCCESS,
     SET_TOTAL_AMOUNT,
     SORT_MOVIES,
@@ -15,20 +14,6 @@ export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, pa
 export const setTotalAmount = (totalAmount) => ({type: SET_TOTAL_AMOUNT, payload: { totalAmount }});
 export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
 export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
-
-export const getMoviesList = () => {
-    return (dispatch) => {
-        dispatch({
-            type: LOAD_MOVIE_LIST_START
-        });
-        api.getMovies().then((moviesData) => {
-            dispatch(setMoviesList(moviesData.data));
-            dispatch(setTotalAmount(moviesData.totalAmount));
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-};
 
 export const getMovie = (id) => {
     return (dispatch) => {

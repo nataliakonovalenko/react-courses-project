@@ -4,7 +4,7 @@ import FilterPanel from "../components/FilterPanel/FilterPanel";
 import MoviesList from "../components/MoviesList/MoviesList";
 import {connect} from "react-redux";
 
-const MovieDetails = (props) => {
+const SearchResult = (props) => {
     return(
         <>
             <TopContainer />
@@ -21,4 +21,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(MovieDetails);
+export default connect(mapStateToProps)(SearchResult);
