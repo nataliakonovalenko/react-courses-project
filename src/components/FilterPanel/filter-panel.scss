@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 .top-panel {
-  padding: 20px 0;
+  padding: 20px;
   margin: 0 0 15px;
   border-bottom: 2px solid $bg-color-light;
   display: flex;
@@ -16,10 +16,4 @@
     right: 0;
     bottom: -4px;
   }
-}
-
-.filter-title {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 0 20px;
 }

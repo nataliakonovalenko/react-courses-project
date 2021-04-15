@@ -4,17 +4,24 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     background: $bg-color;
     color: $text-color;
     margin: 0;
     font: 16px/1.4 Arial, Helvetica, sans-serif;
+    height: 100%;
 }
 
 #root {
     width: 100%;
     overflow: hidden;
     position: relative;
+    padding: 0 0 92px;
+    min-height: 100%;
 }
 
 a {
@@ -44,93 +51,13 @@ button {
     margin: 0 auto;
 }
 
-.select,
-input {
-    display: block;
-    width: 100%;
-    background: $bg-color-light;
-    color: $text-color;
-    border: none;
-    min-height: 60px;
-    font-size: 18px;
-    line-height: 1.1;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin: 0 0 1.5em;
-}
-
-.select {
-    position: relative;
-    padding: 0;
-
-    select {
-        appearance: none;
-        background-color: transparent;
-        border: none;
-        padding: 10px 15px;
-        margin: 0;
-        width: 100%;
-        font-family: inherit;
-        font-size: inherit;
-        cursor: inherit;
-        line-height: inherit;
-        z-index: 1;
-        min-height: 60px;
-        color: $text-color;
-
-        option {
-            color: $bg-color;
-        }
-    }
-
-    &:after {
-        position: absolute;
-        content: "";
-        top: 50%;
-        right: 14px;
-        transform: translateY(-50%);
-        width: 0;
-        height: 0;
-        border: 8px solid transparent;
-        border-color: $link-color transparent transparent transparent;
-        pointer-events: none;
-    }
-}
-
-.form-text {
-    padding: 10px 0;
-    margin: 0 0 1.5em;
-}
-
-label,
-.label {
-    display: inline-block;
-    vertical-align: top;
-    text-transform: uppercase;
-    color: $link-color;
-    font-weight: bold;
-    margin: 0 0 0.5em;
-}
-
 h1 {
     font-weight: normal;
     text-transform: uppercase;
 }
 
-.buttons-holder {
-    display: flex;
-    justify-content: flex-end;
-
-    .btn {
-        margin: 0 0 0 1em;
-    }
-}
-
-.react-datepicker-wrapper {
-    width: 100%;
-}
-
-.error {
-    color: red;
-    margin: -20px 0 20px;
+.filter-title {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 20px 20px;
 }

@@ -6,14 +6,14 @@
   border: 1px solid $link-color;
   background: $link-color;
   color: $text-color;
-  min-height: 60px;
   min-width: 150px;
   font-size: 18px;
   line-height: 1.1;
-  padding: 10px 15px;
+  padding: 20px 15px;
   border-radius: 10px;
   text-transform: uppercase;
   transition: background 0.5s, color 0.5s;
+  text-decoration: none;
 
   &:hover {
     background: darken($link-color, 10%);

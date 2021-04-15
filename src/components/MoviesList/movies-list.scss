@@ -4,9 +4,13 @@
   display: flex;
   flex-wrap: wrap;
   color: $text-color-primary;
-  margin: 0 -20px;
 
   .movie-box {
     width: 33.33%;
   }
+}
+
+.movies-container {
+  text-align: center;
+  padding: 20px;
 }

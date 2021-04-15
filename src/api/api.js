@@ -43,15 +43,23 @@ class Api {
         });
     }
 
-    getMovies() {
-        return this.instance.get().then((response) => {
+    getMovie(id) {
+        return this.instance.get(id).then((response) => {
             const data = response.data;
 
             return {
-                limit: data.limit,
-                offset: data.offset,
-                totalAmount: data.totalAmount,
-                data: data.data.map(mapBackendMovieToAppMovie)
+                releaseDate: DateTime.fromFormat(data.release_date, "y-MM-dd"),
+                id: data.id,
+                title: data.title,
+                tagline: data.tagline,
+                voteAverage: data.vote_average,
+                voteCount: data.vote_count,
+                posterPath: data.poster_path,
+                overview: data.overview,
+                budget: data.budget,
+                revenue: data.revenue,
+                genres: data.genres,
+                runtime: data.runtime
             };
         }).catch((error) => {
             console.log(error);
@@ -100,6 +108,26 @@ class Api {
         return this.instance.get("/", {
             params: {
                 filter: filter
+            }
+        }).then((response) => {
+            const data = response.data;
+
+            return {
+                limit: data.limit,
+                offset: data.offset,
+                totalAmount: data.totalAmount,
+                data: data.data.map(mapBackendMovieToAppMovie)
+            };
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    searchMovies(search, searchBy){
+        return this.instance.get("/", {
+            params: {
+                search: search,
+                searchBy: searchBy
             }
         }).then((response) => {
             const data = response.data;

@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import "./filter-list.scss"
 import {connect} from "react-redux";
 import {filterMoviesList} from "../../store/movie/action-creators";
 
 const FilterList = (props) => {
     const filterList = ["All", "Documentary", "Comedy", "Horror", "Crime"];
+    const [isActive, setActive] = useState(filterList[0]);
 
     const handleFilterLink = (e) => {
         e.preventDefault();
@@ -16,7 +17,7 @@ const FilterList = (props) => {
         <ul className="filter-list">
             {filterList.map((filterLink, index) => {
                 return (
-                    <li key={`filterLink-${index}`}>
+                    <li key={`filterLink-${index}`} className={isActive === filterLink ? 'active': null} onClick={() => {setActive(filterLink)}}>
                         <a href="" data-filter-link={filterLink} onClick={handleFilterLink}>{filterLink}</a>
                     </li>
                 )

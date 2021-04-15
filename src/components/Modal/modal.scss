@@ -17,6 +17,7 @@
   margin: 50px auto;
   transform: translate(0,0);
   height: calc(100% - (50px * 2));
+  overflow: auto;
 }
 
 .modal-content {
@@ -26,8 +27,7 @@
   flex-direction: column;
   width: 100%;
   position: relative;
-  overflow: auto;
-  height: 100%;
+  max-height: 100%;
 }
 
 .modal-close {

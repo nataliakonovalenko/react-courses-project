@@ -2,29 +2,26 @@ import {
     DELETE_MOVIE_LIST_SUCCESS,
     EDIT_MOVIE,
     FILTER_MOVIES,
-    LOAD_MOVIE_LIST_START,
     LOAD_MOVIE_LIST_SUCCESS,
-    SET_TOTAL_AMOUNT,
     SORT_MOVIES,
     ADD_MOVIE,
-    OPEN_MOVIE_DETAILS
+    LOAD_MOVIE_DETAILS,
 } from "./action-types";
 import api from "../../api/api";
 
 export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, payload: { moviesList }});
-export const setTotalAmount = (totalAmount) => ({type: SET_TOTAL_AMOUNT, payload: { totalAmount }});
 export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
 export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
-export const openMovieDetails = (movie) => ({type: OPEN_MOVIE_DETAILS, payload: { movie }});
 
-export const getMoviesList = () => {
+export const getMovie = (id) => {
     return (dispatch) => {
-        dispatch({
-            type: LOAD_MOVIE_LIST_START
-        });
-        api.getMovies().then((moviesData) => {
-            dispatch(setMoviesList(moviesData.data));
-            dispatch(setTotalAmount(moviesData.totalAmount));
+        api.getMovie(id).then((movieDetails) => {
+            dispatch({
+                type: LOAD_MOVIE_DETAILS,
+                payload: {
+                    movieDetails
+                }
+            });
         }).catch((error) => {
             console.log(error);
         });
@@ -37,7 +34,7 @@ export const deleteMovie = (movieId) => {
             type: "DELETE_MOVIE_LIST_START"
         });
 
-        api.deleteMovie(`${movieId}`).then(() => {
+        api.deleteMovie(movieId).then(() => {
             dispatch({
                 type: DELETE_MOVIE_LIST_SUCCESS,
                 payload: {
@@ -101,7 +98,16 @@ export const filterMoviesList = (filter) => {
     return (dispatch) => {
         api.filterMovies(filter).then((moviesData) => {
             dispatch(setFilteredMoviesList(moviesData.data));
-            dispatch(setTotalAmount(moviesData.totalAmount));
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+};
+
+export const searchMovies = (search, searchBy) => {
+    return (dispatch) => {
+        api.searchMovies(search, searchBy).then((moviesData) => {
+            dispatch(setMoviesList(moviesData.data));
         }).catch((error) => {
             console.log(error);
         });

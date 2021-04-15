@@ -1,44 +1,17 @@
-@import "../../styles/variables.scss";
-
 .header {
-  position: relative;
-  min-height: 400px;
-  border-bottom: 8px solid $bg-color-light;
-  padding: 0 0 40px;
-
-  .logo {
-    max-width: 150px;
-  }
-}
-
-.top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.bg-image {
-  filter: blur(3px);
-  background-size: cover;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  z-index: -1;
+  z-index: 2;
 
-  &:before {
-    content:"";
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 8px;
+  .logo {
+    max-width: 150px;
   }
-}
 
-.search-block {
-  max-width: 80%;
-  margin: 0 auto;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
