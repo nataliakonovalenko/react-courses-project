@@ -11,7 +11,9 @@ const TopContainer = (props) => {
     const {id} = useParams();
 
     useEffect(() => {
-        props.getMovieDetails(id);
+        if (id !== undefined) {
+            props.getMovieDetails(id);
+        }
     }, [id]);
 
     return(

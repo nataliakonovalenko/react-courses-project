@@ -23,16 +23,16 @@ const MoviesList = (props) => {
                 <h2>No movie found</h2>
             </div>
         )
-    } else {
-        return (
-            <>
-                <span className="filter-title">{moviesList.length} movies found</span>
-                <div className="movies-list">
-                    {moviesList.map(movie => <MovieBox key={`movie-box-${movie.id}`} movie={movie}/>)}
-                </div>
-            </>
-        )
     }
+
+    return (
+        <>
+            <span className="filter-title">{moviesList.length} movies found</span>
+            <div className="movies-list">
+                {moviesList.map(movie => <MovieBox key={`movie-box-${movie.id}`} movie={movie}/>)}
+            </div>
+        </>
+    )
 };
 
 const mapStateToProps = (state) => {

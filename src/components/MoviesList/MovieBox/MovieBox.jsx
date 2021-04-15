@@ -70,18 +70,18 @@ const MovieBox = connect(null, mapDispatchToProps)(MovieBoxComponent);
 
 MovieBoxComponent.propTypes = {
     movie: PropTypes.exact({
-        posterPath: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-        releaseDate: PropTypes.instanceOf(DateTime).isRequired,
-        id: PropTypes.number.isRequired,
+        posterPath: PropTypes.string,
+        title: PropTypes.string,
+        genres: PropTypes.arrayOf(PropTypes.string),
+        releaseDate: PropTypes.instanceOf(DateTime),
+        id: PropTypes.number,
         tagline: PropTypes.string,
         voteAverage: PropTypes.number,
         voteCount: PropTypes.number,
-        overview: PropTypes.string.isRequired,
+        overview: PropTypes.string,
         budget: PropTypes.number,
         revenue: PropTypes.number,
-        runtime: PropTypes.number.isRequired,
+        runtime: PropTypes.number,
     }),
 };
 
