@@ -8,10 +8,8 @@ import {
     Route,
     Switch,
 } from "react-router-dom";
-import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch";
-import MovieDetails from "./pages/MovieDetails";
-import SearchResult from "./pages/SearchResult";
+import Home from "./pages/Home";
 
 export default function App() {
     return(
@@ -20,8 +18,8 @@ export default function App() {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/film/:id" component={MovieDetails} />
-                    <Route path="/search/:searchQuery" component={SearchResult} />
+                    <Route path="/film/:id" component={Home} />
+                    <Route path="/search/:searchQuery" component={Home} />
                     <Route path="*" component={NoMatch} />
                 </Switch>
                 <Footer />

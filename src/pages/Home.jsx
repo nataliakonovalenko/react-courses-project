@@ -1,16 +1,14 @@
 import React from "react";
 import TopContainer from "../components/TopContainer/TopContainer";
 import FilterPanel from "../components/FilterPanel/FilterPanel";
-import "../styles/pages/home.scss";
+import MoviesList from "../components/MoviesList/MoviesList";
 
-const Home = () => {
+const Home = (props) => {
     return(
         <>
             <TopContainer />
             <FilterPanel />
-            <div className="movies-container">
-                <h2>No movie found</h2>
-            </div>
+            <MoviesList onAction={props.onAction} />
         </>
     )
 };

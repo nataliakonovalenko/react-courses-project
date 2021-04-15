@@ -12,7 +12,6 @@ import {
 
 const initialState = {
     moviesList: [],
-    totalAmount: 0,
     detailsLayoutMovie: null,
     movieDetails: null
 };
@@ -32,11 +31,6 @@ export default function reducer(state = initialState, {type, payload}) {
         case LOAD_MOVIE_LIST_START:
             return {
                 ...state
-            };
-        case SET_TOTAL_AMOUNT:
-            return{
-                ...state,
-                totalAmount: payload.totalAmount
             };
         case DELETE_MOVIE_LIST_SUCCESS:
             const movieToDeleteIndex = state.moviesList.findIndex(movie => movie.id === payload.movieId);
@@ -62,13 +56,11 @@ export default function reducer(state = initialState, {type, payload}) {
             };
         case ADD_MOVIE:
             const moviesList = state.moviesList;
-            const totalAmount = state.totalAmount + 1;
             moviesList.push(payload.movie.data);
 
             return {
                 ...state,
-                moviesList,
-                totalAmount
+                moviesList
             };
         case SORT_MOVIES:
             return {

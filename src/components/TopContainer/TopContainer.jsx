@@ -7,23 +7,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import { useParams } from "react-router-dom";
 import { getMovie} from "../../store/movie/action-creators";
 
-function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-}
-
 const TopContainer = (props) => {
     const {id} = useParams();
-    const prevId = usePrevious(id);
 
     useEffect(() => {
-        if (id && id !== prevId) {
-            props.getMovieDetails(id);
-        }
-    }, [id, prevId]);
+        props.getMovieDetails(id);
+    }, [id]);
 
     return(
         <div className="top-container">

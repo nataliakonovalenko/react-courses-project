@@ -7,17 +7,18 @@ import {useHistory} from 'react-router-dom';
 const SearchForm = () => {
     const history = useHistory();
 
+    const handleSubmit = (values) => {
+        history.push({
+            pathname: `/search/${values.search}`,
+        })
+    };
+
     return(
         <div className="search-block">
             <h1>Find your movie</h1>
             <Formik
                 initialValues={{ search: "" }}
-                onSubmit={(values) => {
-                    history.push({
-                        pathname: `/search/${values.search}`,
-                    })
-                }}
-                >
+                onSubmit={handleSubmit}>
                 {props => (
                     <form onSubmit={props.handleSubmit} className="search-form">
                         <input
