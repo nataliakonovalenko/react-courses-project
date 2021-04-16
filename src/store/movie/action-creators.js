@@ -1,5 +1,5 @@
 import {
-    DELETE_MOVIE_LIST_SUCCESS,
+    DELETE_MOVIE,
     EDIT_MOVIE,
     FILTER_MOVIES,
     LOAD_MOVIE_LIST_SUCCESS,
@@ -36,7 +36,7 @@ export const deleteMovie = (movieId) => {
 
         api.deleteMovie(movieId).then(() => {
             dispatch({
-                type: DELETE_MOVIE_LIST_SUCCESS,
+                type: DELETE_MOVIE,
                 payload: {
                     movieId
                 }

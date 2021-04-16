@@ -1,10 +1,8 @@
 import {
     LOAD_MOVIE_LIST_SUCCESS,
-    LOAD_MOVIE_LIST_START,
-    DELETE_MOVIE_LIST_SUCCESS,
+    DELETE_MOVIE,
     EDIT_MOVIE,
     SORT_MOVIES,
-    SET_TOTAL_AMOUNT,
     FILTER_MOVIES,
     ADD_MOVIE,
     LOAD_MOVIE_DETAILS,
@@ -28,11 +26,7 @@ export default function reducer(state = initialState, {type, payload}) {
                 ...state,
                 movieDetails: payload.movieDetails
             };
-        case LOAD_MOVIE_LIST_START:
-            return {
-                ...state
-            };
-        case DELETE_MOVIE_LIST_SUCCESS:
+        case DELETE_MOVIE:
             const movieToDeleteIndex = state.moviesList.findIndex(movie => movie.id === payload.movieId);
 
             if (movieToDeleteIndex !== -1) {
