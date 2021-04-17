@@ -15,13 +15,15 @@ export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payl
 
 export const getMovie = (id) => {
     return (dispatch) => {
-        api.getMovie(id).then((movieDetails) => {
+        return api.getMovie(id).then((movieDetails) => {
             dispatch({
                 type: LOAD_MOVIE_DETAILS,
                 payload: {
                     movieDetails
                 }
             });
+
+            return movieDetails;
         }).catch((error) => {
             console.log(error);
         });
@@ -30,11 +32,7 @@ export const getMovie = (id) => {
 
 export const deleteMovie = (movieId) => {
     return (dispatch) => {
-        dispatch({
-            type: "DELETE_MOVIE_LIST_START"
-        });
-
-        api.deleteMovie(movieId).then(() => {
+        return api.deleteMovie(movieId).then((response) => {
             dispatch({
                 type: DELETE_MOVIE,
                 payload: {
@@ -42,10 +40,7 @@ export const deleteMovie = (movieId) => {
                 }
             });
         }).catch((error) => {
-            dispatch({
-                type: "DELETE_MOVIE_LIST_START_ERROR",
-                payload: error
-            });
+            console.log(error);
         });
     }
 };
@@ -86,7 +81,7 @@ export const addMovie = (formData) => {
 
 export const sortMoviesList = (sortByParam, orderByParam) => {
     return (dispatch) => {
-        api.sortMovies(sortByParam, orderByParam).then((moviesData) => {
+        return api.sortMovies(sortByParam, orderByParam).then((moviesData) => {
             dispatch(setSortedMoviesList(moviesData.data));
         }).catch((error) => {
             console.log(error);

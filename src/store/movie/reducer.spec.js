@@ -1,17 +1,11 @@
-import {
-    DELETE_MOVIE,
-    LOAD_MOVIE_DETAILS,
-    LOAD_MOVIE_LIST_SUCCESS,
-    SORT_MOVIES, FILTER_MOVIES, ADD_MOVIE,
-    EDIT_MOVIE
-} from "./action-types";
+import * as types from "./action-types";
 import reducer from "./reducer";
 
-describe('Movie reducer', () => {
-    describe('LOAD_MOVIE_LIST_SUCCESS', () => {
-        it('should set movie list into store', () => {
+describe("Movie reducer", () => {
+    describe("LOAD_MOVIE_LIST_SUCCESS", () => {
+        it("should set movie list into store", () => {
             expect(reducer({}, {
-                type: LOAD_MOVIE_LIST_SUCCESS,
+                type: types.LOAD_MOVIE_LIST_SUCCESS,
                 payload: {
                     moviesList: [
                         {
@@ -32,10 +26,10 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('LOAD_MOVIE_DETAILS', () => {
-        it('should set movie details into store', () => {
+    describe("LOAD_MOVIE_DETAILS", () => {
+        it("should set movie details into store", () => {
             expect(reducer({}, {
-                type: LOAD_MOVIE_DETAILS,
+                type: types.LOAD_MOVIE_DETAILS,
                 payload: {
                     movieDetails: {
                         id: 1,
@@ -52,8 +46,8 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('DELETE_MOVIE', () => {
-        it('should delete movie from movie list and set into the store', () => {
+    describe("DELETE_MOVIE", () => {
+        it("should delete movie from movie list and set into the store", () => {
             const moviesList = [
                 {
                     id: 1,
@@ -70,7 +64,7 @@ describe('Movie reducer', () => {
             ];
 
             expect(reducer({ moviesList }, {
-                type: DELETE_MOVIE,
+                type: types.DELETE_MOVIE,
                 payload: {
                     movieId: 2
                 }
@@ -90,10 +84,10 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('SORT_MOVIES', () => {
-        it('should set sorted movies into store', () => {
+    describe("SORT_MOVIES", () => {
+        it("should set sorted movies into store", () => {
             expect(reducer({}, {
-                type: SORT_MOVIES,
+                type: types.SORT_MOVIES,
                 payload: {
                     moviesList: [
                         {
@@ -122,10 +116,10 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('FILTER_MOVIES', () => {
-        it('should set filtered movies into store', () => {
+    describe("FILTER_MOVIES", () => {
+        it("should set filtered movies into store", () => {
             expect(reducer({}, {
-                type: FILTER_MOVIES,
+                type: types.FILTER_MOVIES,
                 payload: {
                     moviesList: [
                         {
@@ -154,8 +148,8 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('ADD_MOVIE', () => {
-        it('should add movie into the movies list and set into the store', () => {
+    describe("ADD_MOVIE", () => {
+        it("should add movie into the movies list and set into the store", () => {
             const moviesList = [
                 {
                     id: 1,
@@ -168,7 +162,7 @@ describe('Movie reducer', () => {
             ];
 
             expect(reducer({moviesList}, {
-                type: ADD_MOVIE,
+                type: types.ADD_MOVIE,
                 payload: {
                     movie: {
                         data: {
@@ -197,8 +191,8 @@ describe('Movie reducer', () => {
         });
     });
 
-    describe('EDIT_MOVIE', () => {
-        it('should edit movie and set into the store', () => {
+    describe("EDIT_MOVIE", () => {
+        it("should edit movie and set into the store", () => {
             const moviesList = [
                 {
                     id: 1,
@@ -211,7 +205,7 @@ describe('Movie reducer', () => {
             ];
 
             expect(reducer({moviesList}, {
-                type: EDIT_MOVIE,
+                type: types.EDIT_MOVIE,
                 payload: {
                     formData: {
                         id: 1,
