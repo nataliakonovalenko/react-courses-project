@@ -3,10 +3,6 @@ import * as types from "./action-types";
 import thunk from "redux-thunk";
 import configureMockStore from "redux-mock-store";
 import api from "./../../api/api";
-import {DELETE_MOVIE} from "./action-types";
-import {EDIT_MOVIE} from "./action-types";
-import {ADD_MOVIE} from "./action-types";
-import {FILTER_MOVIES} from "./action-types";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -51,11 +47,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates DELETE_MOVIE when fetching delete movie has been done", () => {
-                const getMovieMock = jest.fn();
+                const deleteMovieMock = jest.fn();
 
-                jest.spyOn(api, "deleteMovie").mockImplementation(getMovieMock);
+                jest.spyOn(api, "deleteMovie").mockImplementation(deleteMovieMock);
 
-                getMovieMock.mockResolvedValue();
+                deleteMovieMock.mockResolvedValue();
 
                 const expectedActions = [
                     {
@@ -69,7 +65,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.deleteMovie(2)).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(deleteMovieMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
@@ -83,11 +79,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates EDIT_MOVIE when fetching edit movie has been done", () => {
-                const getMovieMock = jest.fn();
+                const editMovieMock = jest.fn();
 
-                jest.spyOn(api, "editMovie").mockImplementation(getMovieMock);
+                jest.spyOn(api, "editMovie").mockImplementation(editMovieMock);
 
-                getMovieMock.mockResolvedValue({id: 1, title: 1});
+                editMovieMock.mockResolvedValue({id: 1, title: 1});
 
                 const expectedActions = [
                     {
@@ -101,7 +97,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.editMovie({id: 1, title: 1, name: "name"})).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(editMovieMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
@@ -115,11 +111,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates ADD_MOVIE when fetching add movie has been done", () => {
-                const getMovieMock = jest.fn();
+                const addMovieMock = jest.fn();
 
-                jest.spyOn(api, "addMovie").mockImplementation(getMovieMock);
+                jest.spyOn(api, "addMovie").mockImplementation(addMovieMock);
 
-                getMovieMock.mockResolvedValue({id: 1, title: 2, name: "name"});
+                addMovieMock.mockResolvedValue({id: 1, title: 2, name: "name"});
 
                 const expectedActions = [
                     {
@@ -133,7 +129,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.addMovie({id: 1, title: 2, name: "name"})).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(addMovieMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
@@ -147,11 +143,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates SORT_MOVIES when fetching sort desc movies has been done", () => {
-                const getMovieMock = jest.fn();
+                const sortMoviesMock = jest.fn();
 
-                jest.spyOn(api, "sortMovies").mockImplementation(getMovieMock);
+                jest.spyOn(api, "sortMovies").mockImplementation(sortMoviesMock);
 
-                getMovieMock.mockResolvedValue({
+                sortMoviesMock.mockResolvedValue({
                     data: {
                         data: [
                             {id: 2, vote_average: 2},
@@ -177,17 +173,17 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.sortMoviesList("vote_average", "desc")).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(sortMoviesMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
 
             it("creates SORT_MOVIES when fetching sort asc movies has been done", () => {
-                const getMovieMock = jest.fn();
+                const sortMoviesMock = jest.fn();
 
-                jest.spyOn(api, "sortMovies").mockImplementation(getMovieMock);
+                jest.spyOn(api, "sortMovies").mockImplementation(sortMoviesMock);
 
-                getMovieMock.mockResolvedValue({
+                sortMoviesMock.mockResolvedValue({
                     data: {
                         data: [
                             {id: 1, vote_average: 1},
@@ -213,7 +209,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.sortMoviesList("vote_average", "desc")).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(sortMoviesMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
@@ -227,11 +223,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates FILTER_MOVIES when fetching filter movies by genres has been done", () => {
-                const getMovieMock = jest.fn();
+                const filterMoviesMock = jest.fn();
 
-                jest.spyOn(api, "filterMovies").mockImplementation(getMovieMock);
+                jest.spyOn(api, "filterMovies").mockImplementation(filterMoviesMock);
 
-                getMovieMock.mockResolvedValue({
+                filterMoviesMock.mockResolvedValue({
                     data: {
                         data: [
                             {id: 2, genres: ["Comedy", "Family"]},
@@ -257,7 +253,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.filterMoviesList("Comedy")).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(filterMoviesMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
@@ -271,11 +267,11 @@ describe("Movie action creators", () => {
             });
 
             it("creates LOAD_MOVIE_LIST_SUCCESS when fetching search movies by title has been done", () => {
-                const getMovieMock = jest.fn();
+                const searchMoviesMock = jest.fn();
 
-                jest.spyOn(api, "searchMovies").mockImplementation(getMovieMock);
+                jest.spyOn(api, "searchMovies").mockImplementation(searchMoviesMock);
 
-                getMovieMock.mockResolvedValue({
+                searchMoviesMock.mockResolvedValue({
                     data: {
                         data: [
                             {id: 2, title: "Coco"},
@@ -301,7 +297,7 @@ describe("Movie action creators", () => {
 
                 return store.dispatch(actions.searchMovies("Coco", "title")).then(() => {
 
-                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(searchMoviesMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)
                 })
             });
