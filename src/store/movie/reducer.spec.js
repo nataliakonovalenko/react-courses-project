@@ -2,6 +2,18 @@ import * as types from "./action-types";
 import reducer from "./reducer";
 
 describe("Movie reducer", () => {
+    describe("INITIAL_STATE", () => {
+        it('should return the initial state', () => {
+            expect(reducer(undefined, {})).toEqual(
+                {
+                    moviesList: [],
+                    detailsLayoutMovie: null,
+                    movieDetails: null
+                }
+            )
+        })
+    });
+
     describe("LOAD_MOVIE_LIST_SUCCESS", () => {
         it("should set movie list into store", () => {
             expect(reducer({}, {
@@ -63,7 +75,7 @@ describe("Movie reducer", () => {
                 },
             ];
 
-            expect(reducer({ moviesList }, {
+            expect(reducer({moviesList}, {
                 type: types.DELETE_MOVIE,
                 payload: {
                     movieId: 2

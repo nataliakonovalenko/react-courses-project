@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot Button component should render Button component 1`] = `
+<button
+  className="btn"
+/>
+`;

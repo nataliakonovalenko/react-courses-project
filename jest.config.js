@@ -82,7 +82,8 @@ module.exports = {
     // roots: // [array<string>]
     // setupFiles: // [array]
     // setupTestFrameworkScriptFile: // [string]
-    // snapshotSerializers: // [array<string>]
+    "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     // testEnvironment: // [string]
     // testPathIgnorePatterns: // [array<string>]
     // testRegex: // [string]
@@ -98,7 +99,7 @@ module.exports = {
     // },
 
     "transform": {
-        "\\.[jt]sx?$": "babel-jest"
+        "\\.[jt]sx?$": "babel-jest",
     },
 
     // transformIgnorePatterns: // [array<string>]
