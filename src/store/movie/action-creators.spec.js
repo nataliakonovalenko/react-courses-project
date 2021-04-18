@@ -1,11 +1,12 @@
 import * as actions from "./action-creators";
 import * as types from "./action-types";
 import thunk from "redux-thunk";
-import configureMockStore  from "redux-mock-store";
+import configureMockStore from "redux-mock-store";
 import api from "./../../api/api";
 import {DELETE_MOVIE} from "./action-types";
 import {EDIT_MOVIE} from "./action-types";
 import {ADD_MOVIE} from "./action-types";
+import {FILTER_MOVIES} from "./action-types";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -150,12 +151,24 @@ describe("Movie action creators", () => {
 
                 jest.spyOn(api, "sortMovies").mockImplementation(getMovieMock);
 
-                getMovieMock.mockResolvedValue({data: {data: [{id: 2, vote_average: 2}, {id: 1, vote_average: 1}]}});
+                getMovieMock.mockResolvedValue({
+                    data: {
+                        data: [
+                            {id: 2, vote_average: 2},
+                            {id: 1, vote_average: 1}
+                        ]
+                    }
+                });
 
                 const expectedActions = [
                     {
                         type: types.SORT_MOVIES, payload: {
-                            moviesList: {data: [{id: 2, vote_average: 2}, {id: 1, vote_average: 1}]}
+                            moviesList: {
+                                data: [
+                                    {id: 2, vote_average: 2},
+                                    {id: 1, vote_average: 1}
+                                ]
+                            }
                         }
                     },
                 ];
@@ -174,12 +187,24 @@ describe("Movie action creators", () => {
 
                 jest.spyOn(api, "sortMovies").mockImplementation(getMovieMock);
 
-                getMovieMock.mockResolvedValue({data: {data: [{id: 1, vote_average: 1}, {id: 2, vote_average: 2}]}});
+                getMovieMock.mockResolvedValue({
+                    data: {
+                        data: [
+                            {id: 1, vote_average: 1},
+                            {id: 2, vote_average: 2}
+                        ]
+                    }
+                });
 
                 const expectedActions = [
                     {
                         type: types.SORT_MOVIES, payload: {
-                            moviesList: {data: [{id: 1, vote_average: 1}, {id: 2, vote_average: 2}]}
+                            moviesList: {
+                                data: [
+                                    {id: 1, vote_average: 1},
+                                    {id: 2, vote_average: 2}
+                                ]
+                            }
                         }
                     },
                 ];
@@ -187,6 +212,94 @@ describe("Movie action creators", () => {
                 const store = mockStore({});
 
                 return store.dispatch(actions.sortMoviesList("vote_average", "desc")).then(() => {
+
+                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(store.getActions()).toEqual(expectedActions)
+                })
+            });
+        });
+    });
+
+    describe("FILTER_MOVIES", () => {
+        describe("async actions", () => {
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("creates FILTER_MOVIES when fetching filter movies by genres has been done", () => {
+                const getMovieMock = jest.fn();
+
+                jest.spyOn(api, "filterMovies").mockImplementation(getMovieMock);
+
+                getMovieMock.mockResolvedValue({
+                    data: {
+                        data: [
+                            {id: 2, genres: ["Comedy", "Family"]},
+                            {id: 1, genres: ["Adventure", "Comedy"]}
+                        ]
+                    }
+                });
+
+                const expectedActions = [
+                    {
+                        type: types.FILTER_MOVIES, payload: {
+                            moviesList: {
+                                data: [
+                                    {id: 2, genres: ["Comedy", "Family"]},
+                                    {id: 1, genres: ["Adventure", "Comedy"]}
+                                ]
+                            }
+                        }
+                    },
+                ];
+
+                const store = mockStore({});
+
+                return store.dispatch(actions.filterMoviesList("Comedy")).then(() => {
+
+                    expect(getMovieMock.mock.calls.length).toBe(1);
+                    expect(store.getActions()).toEqual(expectedActions)
+                })
+            });
+        });
+    });
+
+    describe("SEARCH_MOVIES", () => {
+        describe("async actions", () => {
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("creates LOAD_MOVIE_LIST_SUCCESS when fetching search movies by title has been done", () => {
+                const getMovieMock = jest.fn();
+
+                jest.spyOn(api, "searchMovies").mockImplementation(getMovieMock);
+
+                getMovieMock.mockResolvedValue({
+                    data: {
+                        data: [
+                            {id: 2, title: "Coco"},
+                            {id: 1, title: "Cocoon"}
+                        ]
+                    }
+                });
+
+                const expectedActions = [
+                    {
+                        type: types.LOAD_MOVIE_LIST_SUCCESS, payload: {
+                            moviesList: {
+                                data: [
+                                    {id: 2, title: "Coco"},
+                                    {id: 1, title: "Cocoon"}
+                                ]
+                            }
+                        }
+                    },
+                ];
+
+                const store = mockStore({});
+
+                return store.dispatch(actions.searchMovies("Coco", "title")).then(() => {
 
                     expect(getMovieMock.mock.calls.length).toBe(1);
                     expect(store.getActions()).toEqual(expectedActions)

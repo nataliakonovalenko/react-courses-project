@@ -91,7 +91,7 @@ export const sortMoviesList = (sortByParam, orderByParam) => {
 
 export const filterMoviesList = (filter) => {
     return (dispatch) => {
-        api.filterMovies(filter).then((moviesData) => {
+        return api.filterMovies(filter).then((moviesData) => {
             dispatch(setFilteredMoviesList(moviesData.data));
         }).catch((error) => {
             console.log(error);
@@ -101,7 +101,7 @@ export const filterMoviesList = (filter) => {
 
 export const searchMovies = (search, searchBy) => {
     return (dispatch) => {
-        api.searchMovies(search, searchBy).then((moviesData) => {
+        return api.searchMovies(search, searchBy).then((moviesData) => {
             dispatch(setMoviesList(moviesData.data));
         }).catch((error) => {
             console.log(error);
