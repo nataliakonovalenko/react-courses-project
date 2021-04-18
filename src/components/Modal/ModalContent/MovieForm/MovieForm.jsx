@@ -14,7 +14,7 @@ import "../../../Forms/forms.scss";
 const validation =  Yup.object().shape({
     title: Yup.string().required("Title is required"),
     posterPath: Yup.string().required("Poster URL is required"),
-    genres: Yup.array().min(1, "Genres is required"),
+    //genres: Yup.array().min(1, "Genres is required"),
     overview: Yup.string().required("Overview is required"),
     runtime: Yup.number().required("Runtime minimum is 0").positive().integer().min(0),
 });
@@ -108,9 +108,9 @@ const MovieForm = (props) => {
                     onBlur={setFieldTouched}
                 />
             </FormRow>
-            {touched.genres && errors.genres ? (
+            {/*{touched.genres && errors.genres ? (
                 <div className="error">{errors.genres}</div>
-            ) : null}
+            ) : null}*/}
             <FormRow label="Overview">
                 <input
                     id="Overview"
@@ -141,7 +141,7 @@ const MovieForm = (props) => {
             ) : null}
 
             <div className="buttons-holder">
-                <Button type="reset" className="btn-outline" title="reset" onButtonClick={handleResetForm} disabled={!dirty || isSubmitting} />
+                <Button type="reset" className="btn-outline reset-btn" title="reset" onButtonClick={handleResetForm} disabled={!dirty || isSubmitting} />
                 {props.isEditMovieForm ? (
                     <Button title="save" type="submit" disabled={isSubmitting} />
                 ): <Button title="submit" type="submit" disabled={isSubmitting} /> }
