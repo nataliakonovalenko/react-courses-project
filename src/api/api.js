@@ -79,7 +79,7 @@ class Api {
     }
 
     deleteMovie(data){
-        return this.instance.delete(data).catch((error) => {
+        return this.instance.delete("/" + data).catch((error) => {
             console.log(error);
         });
     }
