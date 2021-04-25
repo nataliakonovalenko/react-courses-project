@@ -4,7 +4,9 @@ import MovieBox from "./MovieBox/MovieBox";
 import {connect} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {searchMovies} from "../../store/movie/action-creators";
-
+// import loadable from '@loadable/component';
+//
+// const MovieBox = loadable(() => import("./MovieBox/MovieBox"));
 
 const MoviesList = (props) => {
     const {searchQuery} = useParams();
