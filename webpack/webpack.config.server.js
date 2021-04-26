@@ -37,6 +37,6 @@ module.exports = merge(common, {
         ],
     },
     plugins: [
-        //!isDevMod && new CleanWebpackPlugin()
+        !isDevMod && new CleanWebpackPlugin()
     ].filter(Boolean),
 });

@@ -40,7 +40,7 @@ module.exports = merge(common, {
     },
 
     plugins: [
-       // !isDevMod && new CleanWebpackPlugin(),
+        !isDevMod && new CleanWebpackPlugin(),
         isDevMod && new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
