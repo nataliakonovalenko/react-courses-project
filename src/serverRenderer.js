@@ -4,15 +4,17 @@ import { StaticRouter } from 'react-router-dom';
 import App from "./App";
 import configureStore from "./store/store";
 import api from "./api/api";
+import {ChunkExtractor} from "@loadable/server";
+const path = require("path");
 
-function renderHTML(html, preloadedState) {
+function renderHTML(html, preloadedState, extractor) {
     return `
       <!doctype html>
       <html>
         <head>
           <meta charset=utf-8>
           <title>React Server Side Rendering</title>
-          ${process.env.NODE_ENV === 'development' ? '' : '<link href="/public/css/main.css" rel="stylesheet" type="text/css">'}
+          ${process.env.NODE_ENV === 'development' ? '' : extractor.getStyleTags()}
         </head>
         <body>
           <div id="root">${html}</div>
@@ -21,11 +23,16 @@ function renderHTML(html, preloadedState) {
             // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
             window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <script src="/public/js/main.js"></script>
+          ${extractor.getScriptTags()}
         </body>
       </html>
   `;
 }
+
+const statsFile = path.resolve(
+    __dirname,
+    '../client/loadable-stats.json',
+);
 
 export default function serverRenderer() {
     return async (req, res, next) => {
@@ -54,6 +61,8 @@ export default function serverRenderer() {
         // This context object contains the results of the render
         const context = {};
 
+        const extractor = new ChunkExtractor({ statsFile });
+
         const renderRoot = () => (
             <App
                 context={context}
@@ -63,7 +72,9 @@ export default function serverRenderer() {
             />
         );
 
-        renderToString(renderRoot());
+        const jsx = extractor.collectChunks(renderRoot);
+
+        renderToString(jsx);
 
         // context.url will contain the URL to redirect to if a <Redirect> was used
         if (context.url) {
@@ -74,9 +85,9 @@ export default function serverRenderer() {
             return;
         }
 
-        const htmlString = renderToString(renderRoot());
+        const htmlString = renderToString(jsx);
         const preloadedState = store.getState();
 
-        res.send(renderHTML(htmlString, preloadedState));
+        res.send(renderHTML(htmlString, preloadedState, extractor));
     };
 }

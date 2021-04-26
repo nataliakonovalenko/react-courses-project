@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
 } else {
     const serverRenderer = require("../dist/server/serverRenderer").default;
 
-    server.use("/public", express.static(path.resolve(__dirname, "../dist/client")));
+    server.use("/public/", express.static(path.resolve(__dirname, "../dist/client")));
     server.use(serverRenderer());
 }
 

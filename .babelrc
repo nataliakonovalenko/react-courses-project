@@ -18,6 +18,7 @@
       {
         "regenerator": true
       }
-    ]
+    ],
+    ["@loadable/babel-plugin"]
   ]
 }

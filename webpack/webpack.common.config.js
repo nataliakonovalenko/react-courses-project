@@ -2,6 +2,7 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin')
 
 const isDevMod = process.env.NODE_ENV === 'development';
 
@@ -10,7 +11,7 @@ module.exports = {
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, '../dist/client'),
-        publicPath: '/public'
+        publicPath: '/public/'
     },
     resolve: {
         extensions: ['.js', '.jsx', 'css'],
@@ -18,15 +19,16 @@ module.exports = {
             'react-dom': '@hot-loader/react-dom',
         },
     },
-    // plugins: [
-    //     new CleanWebpackPlugin(),
-    //     new HTMLWebpackPlugin({
-    //         template: './index.html'
-    //     }),
-    //     new MiniCssExtractPlugin({
-    //         filename: '[name].[fullhash].css'
-    //     })
-    // ],
+    plugins: [
+        // new CleanWebpackPlugin(),
+        // new HTMLWebpackPlugin({
+        //     template: './index.html'
+        // }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].[fullhash].css'
+        // })
+        new LoadablePlugin(),
+    ],
     module: {
         rules: [
             // {

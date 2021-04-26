@@ -5,6 +5,7 @@ import "./styles/common.scss";
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from "./store/store";
 import { DateTime } from "luxon";
+import { loadableReady } from '@loadable/component'
 
 let preloadedState = window.PRELOADED_STATE;
 
@@ -19,10 +20,12 @@ if (preloadedState.movie && preloadedState.movie.moviesList) {
 
 const store = configureStore(window.PRELOADED_STATE);
 
-ReactDOM.hydrate(
-    <App
-        Router={BrowserRouter}
-        store={store}
-    />,
-    document.getElementById("root")
-);
+loadableReady(() => {
+    ReactDOM.hydrate(
+        <App
+            Router={BrowserRouter}
+            store={store}
+        />,
+        document.getElementById("root")
+    );
+});
