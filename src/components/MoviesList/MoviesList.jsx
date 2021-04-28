@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./movies-list.scss";
 import {connect} from "react-redux";
 import {useParams} from 'react-router-dom';
@@ -11,8 +11,8 @@ const MoviesList = (props) => {
     const {searchQuery} = useParams();
 
     useEffect(() => {
-        if (searchQuery) {
-            props.searchMovies(searchQuery, "title");
+        return () => {
+           props.searchMovies(searchQuery, "title");
         }
     }, [searchQuery]);
 
