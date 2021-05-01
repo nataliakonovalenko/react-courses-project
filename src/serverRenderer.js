@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import App from "./App";
 import configureStore from "./store/store";
 import api from "./api/api";
-import {ChunkExtractor} from "@loadable/server";
+import {ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 const path = require("path");
 
 function renderHTML(html, preloadedState, extractor) {
@@ -63,18 +63,16 @@ export default function serverRenderer() {
 
         const extractor = new ChunkExtractor({ statsFile });
 
-        const renderRoot = () => (
-            <App
-                context={context}
-                location={req.url}
-                Router={StaticRouter}
-                store={store}
-            />
+        const htmlString = renderToString(
+            <ChunkExtractorManager>
+                <App
+                    context={context}
+                    location={req.url}
+                    Router={StaticRouter}
+                    store={store}
+                />
+            </ChunkExtractorManager>,
         );
-
-        const jsx = extractor.collectChunks(renderRoot);
-
-        renderToString(jsx);
 
         // context.url will contain the URL to redirect to if a <Redirect> was used
         if (context.url) {
@@ -85,7 +83,6 @@ export default function serverRenderer() {
             return;
         }
 
-        const htmlString = renderToString(jsx);
         const preloadedState = store.getState();
 
         res.send(renderHTML(htmlString, preloadedState, extractor));
