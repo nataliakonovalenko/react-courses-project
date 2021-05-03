@@ -3,9 +3,14 @@ import "./movies-list.scss";
 import {connect} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {searchMovies} from "../../store/movie/action-creators";
-import loadable from '@loadable/component';
+import MovieBox from "./MovieBox/MovieBox";
 
-const MovieBox = loadable(() => import("./MovieBox/MovieBox"));
+// import loadable from '@loadable/component';
+//
+// const MovieBox = loadable(() => import("./MovieBox/MovieBox"), {
+//     fallback: <div>Loading...</div>,
+//     ssr: false
+// });
 
 const MoviesList = (props) => {
     const {searchQuery} = useParams();

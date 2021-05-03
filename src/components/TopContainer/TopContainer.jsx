@@ -7,7 +7,10 @@ import { useParams } from "react-router-dom";
 import { getMovie} from "../../store/movie/action-creators";
 import loadable from '@loadable/component';
 
-const MovieDetails = loadable(() => import("../MovieDetails/MovieDetails"));
+const MovieDetails = loadable(() => import("../MovieDetails/MovieDetails"), {
+    fallback: <div>Loading...</div>,
+    ssr: false
+});
 
 const TopContainer = (props) => {
     const {id} = useParams();

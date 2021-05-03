@@ -64,14 +64,13 @@ export default function serverRenderer() {
         const extractor = new ChunkExtractor({ statsFile });
 
         const htmlString = renderToString(
-            <ChunkExtractorManager>
+            extractor.collectChunks(
                 <App
                     context={context}
                     location={req.url}
                     Router={StaticRouter}
                     store={store}
-                />
-            </ChunkExtractorManager>,
+                />)
         );
 
         // context.url will contain the URL to redirect to if a <Redirect> was used
