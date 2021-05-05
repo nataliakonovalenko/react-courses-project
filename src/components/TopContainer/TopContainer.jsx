@@ -1,11 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import BgImage from "../../assets/hero-img.jpg";
-import MovieDetails from "../MovieDetails/MovieDetails";
 import {connect} from "react-redux";
 import "./top-container.scss"
 import SearchForm from "../SearchForm/SearchForm";
 import { useParams } from "react-router-dom";
 import { getMovie} from "../../store/movie/action-creators";
+import loadable from '@loadable/component';
+
+const MovieDetails = loadable(() => import("../MovieDetails/MovieDetails"), {
+    fallback: <div>Loading...</div>,
+    ssr: false
+});
 
 const TopContainer = (props) => {
     const {id} = useParams();

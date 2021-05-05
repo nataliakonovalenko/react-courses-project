@@ -1,17 +1,23 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./movies-list.scss";
-import MovieBox from "./MovieBox/MovieBox";
 import {connect} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {searchMovies} from "../../store/movie/action-creators";
+import MovieBox from "./MovieBox/MovieBox";
 
+// import loadable from '@loadable/component';
+//
+// const MovieBox = loadable(() => import("./MovieBox/MovieBox"), {
+//     fallback: <div>Loading...</div>,
+//     ssr: false
+// });
 
 const MoviesList = (props) => {
     const {searchQuery} = useParams();
 
     useEffect(() => {
-        if (searchQuery) {
-            props.searchMovies(searchQuery, "title");
+        return () => {
+           props.searchMovies(searchQuery, "title");
         }
     }, [searchQuery]);
 

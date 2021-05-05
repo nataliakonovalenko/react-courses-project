@@ -10,21 +10,27 @@ import {
 } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
+import { hot } from "react-hot-loader";
+import {Provider} from "react-redux";
 
-export default function App() {
+const App = ({ Router, location, context, store }) => {
     return(
-        <Router>
-            <ErrorBoundary>
-                <Header />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/film/:id" component={Home} />
-                    <Route path="/search/:searchQuery" component={Home} />
-                    <Route path="*" component={NoMatch} />
-                </Switch>
-                <Footer />
-                <ModalManager />
-            </ErrorBoundary>
-        </Router>
+        <Provider store={store}>
+            <Router location={location} context={context}>
+                <ErrorBoundary>
+                    <Header />
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/film/:id" component={Home} />
+                        <Route path="/search/:searchQuery" component={Home} />
+                        <Route path="*" component={NoMatch} />
+                    </Switch>
+                    <Footer />
+                    <ModalManager />
+                </ErrorBoundary>
+            </Router>
+        </Provider>
     )
-}
+};
+
+export default hot(module)(App);
