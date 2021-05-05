@@ -1,25 +1,26 @@
 import React from "react";
-import Button from "../../../Button/Button";
-import FormRow from "../../../Forms/FormRow";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { DateTime } from "luxon";
 import { withFormik } from 'formik';
-import {editMovie, addMovie} from "../../../../store/movie/action-creators";
-import CustomSelect from "../../../Forms/Select";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
-//import "react-datepicker/dist/react-datepicker.css";
+import Button from "../../../Button/Button";
+import FormRow from "../../../Forms/FormRow";
+import { editMovie, addMovie } from "../../../../store/movie/action-creators";
+import CustomSelect from "../../../Forms/Select";
+// import "react-datepicker/dist/react-datepicker.css";
 import "../../../Forms/forms.scss";
 
-const validation =  Yup.object().shape({
+const validation = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     posterPath: Yup.string().required("Poster URL is required"),
-    //genres: Yup.array().min(1, "Genres is required"),
+    // genres: Yup.array().min(1, "Genres is required"),
     overview: Yup.string().required("Overview is required"),
     runtime: Yup.number().required("Runtime minimum is 0").positive().integer().min(0),
 });
 
 const MovieForm = (props) => {
+    const { isEditMovieForm, movie } = props;
     const {
         values,
         touched,
@@ -28,11 +29,10 @@ const MovieForm = (props) => {
         handleChange,
         handleBlur,
         handleSubmit,
-        handleReset,
         setFieldValue,
         setFieldTouched,
         dirty,
-        resetForm
+        resetForm,
     } = props;
 
     const handleResetForm = () => {
@@ -43,23 +43,23 @@ const MovieForm = (props) => {
                 posterPath: "",
                 overview: "",
                 runtime: "",
-                genres: []
-            }
+                genres: [],
+            },
         });
     };
 
-    return(
-        <form className="movie-form" onSubmit={handleSubmit} >
+    return (
+        <form className="movie-form" onSubmit={handleSubmit}>
             {isSubmitting ? "...submiting" : null}
             <h1>
-                {props.isEditMovieForm ? (
+                {isEditMovieForm ? (
                     "Edit"
-                ): "Add"} movie
+                ) : "Add"} movie
             </h1>
-            {props.isEditMovieForm ? (
+            {isEditMovieForm ? (
                 <>
                     <span className="label">Movie ID</span>
-                    <div className="form-text">{props.movie.id}</div>
+                    <div className="form-text">{movie.id}</div>
                 </>
             ) : null}
             <FormRow label="Title">
@@ -82,7 +82,7 @@ const MovieForm = (props) => {
                     id="Release date"
                     name="releaseDate"
                     selected={values.releaseDate}
-                    onChange={date => setFieldValue('releaseDate', date)}
+                    onChange={(date) => setFieldValue('releaseDate', date)}
                 />
             </FormRow>
             <FormRow label="Movie URL">
@@ -108,9 +108,9 @@ const MovieForm = (props) => {
                     onBlur={setFieldTouched}
                 />
             </FormRow>
-            {/*{touched.genres && errors.genres ? (
+            {/* {touched.genres && errors.genres ? (
                 <div className="error">{errors.genres}</div>
-            ) : null}*/}
+            ) : null} */}
             <FormRow label="Overview">
                 <input
                     id="Overview"
@@ -142,16 +142,16 @@ const MovieForm = (props) => {
 
             <div className="buttons-holder">
                 <Button type="reset" className="btn-outline reset-btn" title="reset" onButtonClick={handleResetForm} disabled={!dirty || isSubmitting} />
-                {props.isEditMovieForm ? (
+                {isEditMovieForm ? (
                     <Button title="save" type="submit" disabled={isSubmitting} />
-                ): <Button title="submit" type="submit" disabled={isSubmitting} /> }
+                ) : <Button title="submit" type="submit" disabled={isSubmitting} /> }
             </div>
         </form>
-    )
+    );
 };
 
-const EnhancedForm  = withFormik({
-    mapPropsToValues: (props ) => ({
+const EnhancedForm = withFormik({
+    mapPropsToValues: (props) => ({
         title: props.isEditMovieForm ? props.movie.title : "",
         releaseDate: props.isEditMovieForm ? new Date(props.movie.releaseDate.toFormat("y/MM/dd")) : new Date(),
         posterPath: props.isEditMovieForm ? props.movie.posterPath : "",
@@ -172,7 +172,7 @@ const EnhancedForm  = withFormik({
         });
 
         if (props.isEditMovieForm) {
-            props.editCurrentMovie(formData).then((data) => {
+            props.editCurrentMovie(formData).then(() => {
                 setSubmitting(false);
 
                 props.onClose();
@@ -182,7 +182,7 @@ const EnhancedForm  = withFormik({
                 console.log("err", err);
             });
         } else {
-            props.addMovie(formData).then((data) => {
+            props.addMovie(formData).then(() => {
                 setSubmitting(false);
 
                 props.onClose();
@@ -196,7 +196,7 @@ const EnhancedForm  = withFormik({
 })(MovieForm);
 
 const mapStateToProps = (state, ownProps) => {
-    const movieIndex = state.movie.moviesList.findIndex(movie => movie.id === ownProps.movieId);
+    const movieIndex = state.movie.moviesList.findIndex((movie) => movie.id === ownProps.movieId);
 
     let currentMovie = null;
     if (movieIndex !== -1) {
@@ -204,18 +204,18 @@ const mapStateToProps = (state, ownProps) => {
     }
 
     return {
-        movie: currentMovie
-    }
+        movie: currentMovie,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         editCurrentMovie: (movieData) => {
-            return dispatch(editMovie(movieData))
+            return dispatch(editMovie(movieData));
         },
         addMovie: (movieData) => {
-            return dispatch(addMovie(movieData))
-        }
+            return dispatch(addMovie(movieData));
+        },
     };
 };
 

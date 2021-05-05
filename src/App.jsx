@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { hot } from "react-hot-loader";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
@@ -10,11 +12,9 @@ import {
 } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import Home from "./pages/Home";
-import { hot } from "react-hot-loader";
-import {Provider} from "react-redux";
 
 const App = ({ Router, location, context, store }) => {
-    return(
+    return (
         <Provider store={store}>
             <Router location={location} context={context}>
                 <ErrorBoundary>
@@ -30,7 +30,7 @@ const App = ({ Router, location, context, store }) => {
                 </ErrorBoundary>
             </Router>
         </Provider>
-    )
+    );
 };
 
 export default hot(module)(App);

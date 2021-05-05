@@ -9,9 +9,9 @@ import {
 } from "./action-types";
 import api from "../../api/api";
 
-export const setMoviesList = (moviesList) => ({type: LOAD_MOVIE_LIST_SUCCESS, payload: { moviesList }});
-export const setSortedMoviesList = (moviesList) => ({type: SORT_MOVIES, payload: { moviesList }});
-export const setFilteredMoviesList = (moviesList) => ({type: FILTER_MOVIES, payload: { moviesList }});
+export const setMoviesList = (moviesList) => ({ type: LOAD_MOVIE_LIST_SUCCESS, payload: { moviesList } });
+export const setSortedMoviesList = (moviesList) => ({ type: SORT_MOVIES, payload: { moviesList } });
+export const setFilteredMoviesList = (moviesList) => ({ type: FILTER_MOVIES, payload: { moviesList } });
 
 export const getMovie = (id) => {
     return (dispatch) => {
@@ -19,30 +19,30 @@ export const getMovie = (id) => {
             dispatch({
                 type: LOAD_MOVIE_DETAILS,
                 payload: {
-                    movieDetails
-                }
+                    movieDetails,
+                },
             });
 
             return movieDetails;
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const deleteMovie = (movieId) => {
     return (dispatch) => {
-        return api.deleteMovie(movieId).then((response) => {
+        return api.deleteMovie(movieId).then(() => {
             dispatch({
                 type: DELETE_MOVIE,
                 payload: {
-                    movieId
-                }
+                    movieId,
+                },
             });
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const editMovie = (formData) => {
@@ -51,15 +51,15 @@ export const editMovie = (formData) => {
             dispatch({
                 type: EDIT_MOVIE,
                 payload: {
-                    formData
-                }
+                    formData,
+                },
             });
 
             return formData;
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const addMovie = (formData) => {
@@ -68,15 +68,15 @@ export const addMovie = (formData) => {
             dispatch({
                 type: ADD_MOVIE,
                 payload: {
-                    movie
-                }
+                    movie,
+                },
             });
 
             return movie;
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const sortMoviesList = (sortByParam, orderByParam) => {
@@ -86,7 +86,7 @@ export const sortMoviesList = (sortByParam, orderByParam) => {
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const filterMoviesList = (filter) => {
@@ -96,7 +96,7 @@ export const filterMoviesList = (filter) => {
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
 
 export const searchMovies = (search, searchBy) => {
@@ -106,6 +106,5 @@ export const searchMovies = (search, searchBy) => {
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 };
-

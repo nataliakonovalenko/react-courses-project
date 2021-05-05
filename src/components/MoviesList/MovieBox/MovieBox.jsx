@@ -1,16 +1,17 @@
-import React, {useState, useCallback} from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import "./movie-box.scss"
-import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
+import "./movie-box.scss";
 import { DateTime } from "luxon";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {showModal} from "../../../store/modal/action-creators";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { showModal } from "../../../store/modal/action-creators";
+import MovieDropdownList from "../MovieDropdownList/MovieDropdownList";
 
-const MovieBoxComponent = (props) => {
+const MovieBoxComponent = ({ movie, showModal }) => {
     const [movieDropdown, setMovieDropdown] = useState(false);
     const history = useHistory();
+    const { posterPath, title, genres, releaseDate, id } = movie;
 
     const showDropdown = () => {
         setMovieDropdown(true);
@@ -21,20 +22,20 @@ const MovieBoxComponent = (props) => {
     };
 
     const handleEditAction = useCallback(() => {
-        props.showModal("edit", {movieId: props.movie.id});
-    }, [props.movie]);
+        showModal("edit", { movieId: id });
+    }, [movie]);
 
     const handleDeleteAction = useCallback(() => {
-        props.showModal("delete", {movieId: props.movie.id});
-    }, [props.movie]);
+        showModal("delete", { movieId: id });
+    }, [movie]);
 
-    const {posterPath, title, genres, releaseDate} = props.movie;
+    const handleFilmIdToHistory = () => {
+        history.push(`/film/${id}`);
+    };
 
     return (
-        <div className="movie-box" onClick={() => {
-            history.push(`/film/${props.movie.id}`)
-        }}>
-            <img src={posterPath} alt=""/>
+        <div className="movie-box" role="button" tabIndex="0" onClick={handleFilmIdToHistory}>
+            <img src={posterPath} width="500" height="750" alt="img description" />
             <div className="movie-description">
                 <div className="movie-heading">
                     <h2>{title}</h2>
@@ -43,27 +44,30 @@ const MovieBoxComponent = (props) => {
                 <span className="movie-year">{releaseDate.toFormat("y")}</span>
             </div>
             <div className="movie-dropdown">
-                <button type="button" onClick={showDropdown} className="movie-edit-icon"></button>
+                <button type="button" onClick={showDropdown} className="movie-edit-icon" />
                 {
                     movieDropdown === true ? (
                         <div className="movie-dropdown-wrap">
                             <MovieDropdownList
                                 onEditClick={handleEditAction}
-                                onDeleteClick={handleDeleteAction} />
+                                onDeleteClick={handleDeleteAction}
+                            />
                             <button
                                 className="movie-dropdown-close"
                                 onClick={hideDropdown}
-                            >X</button>
+                            >
+                                X
+                            </button>
                         </div>
-                    ): null
+                    ) : null
                 }
             </div>
         </div>
-    )
+    );
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ showModal }, dispatch)
+    return bindActionCreators({ showModal }, dispatch);
 };
 
 const MovieBox = connect(null, mapDispatchToProps)(MovieBoxComponent);
@@ -85,4 +89,4 @@ MovieBoxComponent.propTypes = {
     }),
 };
 
-export default MovieBox;
+export default React.memo(MovieBox);

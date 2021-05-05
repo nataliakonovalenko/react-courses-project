@@ -1,10 +1,11 @@
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from 'react-router-dom';
+import { ChunkExtractor } from "@loadable/server";
 import App from "./App";
 import configureStore from "./store/store";
 import api from "./api/api";
-import {ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
+
 const path = require("path");
 
 function renderHTML(html, preloadedState, extractor) {
@@ -36,16 +37,15 @@ const statsFile = path.resolve(
 
 export default function serverRenderer() {
     return async (req, res, next) => {
-
         if (req.url.indexOf('.') !== -1) {
-             next();
+            next();
 
             return;
         }
 
         let initialState = {};
 
-        if(req.url.includes('/search')){
+        if (req.url.includes('/search')) {
             const searchQuery = req.url.split('/search/')[1];
 
             const initialData = await api.searchMovies(searchQuery, "title")
@@ -53,7 +53,7 @@ export default function serverRenderer() {
                     return response.data;
                 });
 
-            initialState = {movie: {moviesList: initialData}}
+            initialState = { movie: { moviesList: initialData } };
         }
 
         const store = configureStore(initialState);
@@ -70,7 +70,8 @@ export default function serverRenderer() {
                     location={req.url}
                     Router={StaticRouter}
                     store={store}
-                />)
+                />,
+            ),
         );
 
         // context.url will contain the URL to redirect to if a <Redirect> was used

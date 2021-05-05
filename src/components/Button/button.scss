@@ -19,6 +19,12 @@
     background: darken($link-color, 10%);
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
   &.btn-outline {
     background: transparent;
     color: $link-color;
@@ -29,7 +35,7 @@
     }
   }
 
-  &.add-movie {
+  &.btn-success {
     background: rgba($white, 0.1);
     color: $link-color;
     border: none;
@@ -41,3 +47,4 @@
     }
   }
 }
+

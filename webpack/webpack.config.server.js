@@ -1,8 +1,8 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
-const common = require('./webpack.common.config.js');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const common = require('./webpack.common.config.js');
 
 const isDevMod = process.env.NODE_ENV === 'development';
 
@@ -21,7 +21,7 @@ module.exports = merge(common, {
             {
                 test: /\.(s[ac]ss|css)$/i,
                 include: /src/,
-                use: ["css-loader", "sass-loader"]
+                use: ["css-loader", "sass-loader"],
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
@@ -30,13 +30,13 @@ module.exports = merge(common, {
                     options: {
                         name: '[name].[ext]',
                         outputPath: '/img/',
-                        emitFile: false
+                        emitFile: false,
                     },
                 },
             },
         ],
     },
     plugins: [
-        !isDevMod && new CleanWebpackPlugin()
+        !isDevMod && new CleanWebpackPlugin(),
     ].filter(Boolean),
 });

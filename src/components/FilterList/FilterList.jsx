@@ -1,7 +1,9 @@
-import React, {useState} from "react";
-import "./filter-list.scss"
-import {connect} from "react-redux";
-import {filterMoviesList} from "../../store/movie/action-creators";
+import React, { useState } from "react";
+import "./filter-list.scss";
+import { connect } from "react-redux";
+import { filterMoviesList } from "../../store/movie/action-creators";
+
+const shortid = require("shortid");
 
 const FilterList = (props) => {
     const filterList = ["All", "Documentary", "Comedy", "Horror", "Crime"];
@@ -13,24 +15,24 @@ const FilterList = (props) => {
         props.filterMovies(filterLink);
     };
 
-    return(
+    return (
         <ul className="filter-list">
-            {filterList.map((filterLink, index) => {
+            {filterList.map((filterLink) => {
                 return (
-                    <li key={`filterLink-${index}`} className={isActive === filterLink ? 'active': null} onClick={() => {setActive(filterLink)}}>
-                        <a href="" data-filter-link={filterLink} onClick={handleFilterLink}>{filterLink}</a>
+                    <li key={shortid.generate()} className={isActive === filterLink ? 'active' : null} onClick={() => { setActive(filterLink); }}>
+                        <a href="#" data-filter-link={filterLink} onClick={handleFilterLink}>{filterLink}</a>
                     </li>
-                )
+                );
             })}
         </ul>
-    )
+    );
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         filterMovies: (filter) => {
-            dispatch(filterMoviesList(filter))
-        }
+            dispatch(filterMoviesList(filter));
+        },
     };
 };
 

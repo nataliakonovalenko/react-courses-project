@@ -1,10 +1,12 @@
 import React from "react";
 
 export default function FormRow(props) {
-    return(
+    const { label, children } = props;
+
+    return (
         <div className="form-row">
-            <label htmlFor={props.label}>{props.label}</label>
-            {props.children}
+            <label htmlFor={label}>{label}</label>
+            {children}
         </div>
-    )
+    );
 }

@@ -8,10 +8,10 @@ describe("Movie reducer", () => {
                 {
                     moviesList: [],
                     detailsLayoutMovie: null,
-                    movieDetails: null
-                }
-            )
-        })
+                    movieDetails: null,
+                },
+            );
+        });
     });
 
     describe("LOAD_MOVIE_LIST_SUCCESS", () => {
@@ -23,18 +23,19 @@ describe("Movie reducer", () => {
                         {
                             id: 1,
                             title: "title",
-                        }
-                    ]
-                }
+                        },
+                    ],
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
                         {
                             id: 1,
                             title: "title",
-                        }
-                    ]
-                }))
+                        },
+                    ],
+                }),
+            );
         });
     });
 
@@ -46,15 +47,16 @@ describe("Movie reducer", () => {
                     movieDetails: {
                         id: 1,
                         title: "title",
-                    }
-                }
+                    },
+                },
             })).toEqual(
                 expect.objectContaining({
                     movieDetails: {
                         id: 1,
                         title: "title",
-                    }
-                }))
+                    },
+                }),
+            );
         });
     });
 
@@ -75,11 +77,11 @@ describe("Movie reducer", () => {
                 },
             ];
 
-            expect(reducer({moviesList}, {
+            expect(reducer({ moviesList }, {
                 type: types.DELETE_MOVIE,
                 payload: {
-                    movieId: 2
-                }
+                    movieId: 2,
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
@@ -91,8 +93,9 @@ describe("Movie reducer", () => {
                             id: 3,
                             title: "title 3",
                         },
-                    ]
-                }))
+                    ],
+                }),
+            );
         });
     });
 
@@ -109,9 +112,9 @@ describe("Movie reducer", () => {
                         {
                             id: 2,
                             title: "title 2",
-                        }
-                    ]
-                }
+                        },
+                    ],
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
@@ -122,9 +125,10 @@ describe("Movie reducer", () => {
                         {
                             id: 2,
                             title: "title 2",
-                        }
-                    ]
-                }))
+                        },
+                    ],
+                }),
+            );
         });
     });
 
@@ -141,9 +145,9 @@ describe("Movie reducer", () => {
                         {
                             id: 2,
                             title: "title 2",
-                        }
-                    ]
-                }
+                        },
+                    ],
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
@@ -154,9 +158,10 @@ describe("Movie reducer", () => {
                         {
                             id: 2,
                             title: "title 2",
-                        }
-                    ]
-                }))
+                        },
+                    ],
+                }),
+            );
         });
     });
 
@@ -173,16 +178,16 @@ describe("Movie reducer", () => {
                 },
             ];
 
-            expect(reducer({moviesList}, {
+            expect(reducer({ moviesList }, {
                 type: types.ADD_MOVIE,
                 payload: {
                     movie: {
                         data: {
                             id: 5,
                             title: "title 5",
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
@@ -198,8 +203,9 @@ describe("Movie reducer", () => {
                             id: 5,
                             title: "title 5",
                         },
-                    ]
-                }))
+                    ],
+                }),
+            );
         });
     });
 
@@ -216,29 +222,30 @@ describe("Movie reducer", () => {
                 },
             ];
 
-            expect(reducer({moviesList}, {
+            expect(reducer({ moviesList }, {
                 type: types.EDIT_MOVIE,
                 payload: {
                     formData: {
                         id: 1,
                         title: "title 1",
-                        name: "name"
-                    }
-                }
+                        name: "name",
+                    },
+                },
             })).toEqual(
                 expect.objectContaining({
                     moviesList: [
                         {
                             id: 1,
                             title: "title 1",
-                            name: "name"
+                            name: "name",
                         },
                         {
                             id: 2,
                             title: "title 2",
                         },
-                    ]
-                }))
+                    ],
+                }),
+            );
         });
     });
 });

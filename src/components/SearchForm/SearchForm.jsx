@@ -1,8 +1,8 @@
 import React from "react";
-import "./search-form.scss"
-import Button from "../Button/Button";
+import "./search-form.scss";
 import { Formik } from 'formik';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Button from "../Button/Button";
 
 const SearchForm = () => {
     const history = useHistory();
@@ -10,16 +10,17 @@ const SearchForm = () => {
     const handleSubmit = (values) => {
         history.push({
             pathname: `/search/${values.search}`,
-        })
+        });
     };
 
-    return(
+    return (
         <div className="search-block">
             <h1>Find your movie</h1>
             <Formik
                 initialValues={{ search: "" }}
-                onSubmit={handleSubmit}>
-                {props => (
+                onSubmit={handleSubmit}
+            >
+                {(props) => (
                     <form onSubmit={props.handleSubmit} className="search-form">
                         <input
                             type="search"
@@ -34,8 +35,7 @@ const SearchForm = () => {
                 )}
             </Formik>
         </div>
-    )
+    );
 };
 
 export default SearchForm;
-

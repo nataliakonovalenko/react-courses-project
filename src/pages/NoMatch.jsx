@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/pages/no-match.scss";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const NoMatch = () => {
-    return(
+    return (
         <div className="no-match-page">
             <div className="container">
                 <h1>Page not found</h1>
@@ -11,7 +11,7 @@ const NoMatch = () => {
                 <Link className="btn btn-outline" to="/">Go back to home</Link>
             </div>
         </div>
-    )
+    );
 };
 
 export default NoMatch;

@@ -1,18 +1,18 @@
 import React from "react";
 import "./movie-details.scss";
 
-const MovieDetails = props => {
-    const {movie} = props;
+const MovieDetails = (props) => {
+    const { movie } = props;
 
     if (!movie) {
-        return null
+        return null;
     }
 
-    const {posterPath, title, voteAverage, releaseDate, runtime, overview} = movie;
+    const { posterPath, title, voteAverage, releaseDate, runtime, overview } = movie;
 
     return (
         <div className="movie-details">
-            <img className="movie-img" src={posterPath} alt=""/>
+            <img className="movie-img" width="300" height="445" src={posterPath} alt="" />
             <div className="movie-description">
                 <h1>{title} <span className="film-rating">{voteAverage}</span></h1>
                 <span className="movie-info">{releaseDate.toFormat("y")}</span>
@@ -20,7 +20,7 @@ const MovieDetails = props => {
                 <p>{overview}</p>
             </div>
         </div>
-    )
+    );
 };
 
-export default MovieDetails;
+export default React.memo(MovieDetails);

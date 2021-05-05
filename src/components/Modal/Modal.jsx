@@ -11,7 +11,7 @@ const Modal = (props) => {
 
         return () => {
             document.body.removeChild(container);
-        }
+        };
     });
 
     const handleClose = () => {
@@ -24,9 +24,12 @@ const Modal = (props) => {
                 <div className="modal-content">
                     {props.children}
                     <button
+                        type="button"
                         className="modal-close"
                         onClick={handleClose}
-                    >X</button>
+                    >
+                        X
+                    </button>
                 </div>
             </div>
         </div>
