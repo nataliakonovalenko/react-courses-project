@@ -1,5 +1,5 @@
 import React from "react";
-import { withKnobs, text, files, date, array } from "@storybook/addon-knobs";
+import { withKnobs, text, files, date } from "@storybook/addon-knobs";
 import MovieBox from "./MovieBox";
 import BgImage from "../../../assets/hero-img.jpg";
 
@@ -17,6 +17,7 @@ export const Movie = () => {
     }
     const movieDate = myDateKnob("date", new Date());
     const genresArray = ["Adventure", "Comedy", "Family"];
+    const genresString = genresArray.join(", ");
 
     return (
         <div className="movie-box" role="button" tabIndex="0">
@@ -24,7 +25,7 @@ export const Movie = () => {
             <div className="movie-description">
                 <div className="movie-heading">
                     <h2>{text("title", "Movie title")}</h2>
-                    <span className="movie-title">{array("genres", genresArray, ", ")}</span>
+                    <span className="movie-title">{text("genres", genresString)}</span>
                 </div>
                 <span className="movie-year">{movieDate.getFullYear()}</span>
             </div>

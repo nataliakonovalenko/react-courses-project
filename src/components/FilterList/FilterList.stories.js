@@ -1,5 +1,5 @@
 import React from "react";
-import { text, withKnobs } from "@storybook/addon-knobs";
+import { object, withKnobs } from "@storybook/addon-knobs";
 import FilterList from "./FilterList";
 
 const shortid = require("shortid");
@@ -13,12 +13,14 @@ export default {
 export const List = () => {
     const filterArray = ["All", "Documentary", "Comedy", "Horror", "Crime"];
 
+    const value = object("filterItems", filterArray);
+
     return (
         <ul className="filter-list">
-            {filterArray.map((filterLink, index) => {
+            {value.map((filterLink) => {
                 return (
                     <li key={shortid.generate()}>
-                        <a href="#">{text(`item${index}`, filterLink)}</a>
+                        <a href="#">{filterLink}</a>
                     </li>
                 );
             })}
