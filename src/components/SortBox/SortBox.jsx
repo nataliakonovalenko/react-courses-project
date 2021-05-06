@@ -1,7 +1,9 @@
-import React, {useState} from "react";
-import "./sort-box.scss"
-import {connect} from "react-redux";
-import {sortMoviesList} from "../../store/movie/action-creators";
+import React, { useState } from "react";
+import "./sort-box.scss";
+import { connect } from "react-redux";
+import { sortMoviesList } from "../../store/movie/action-creators";
+
+const shortid = require("shortid");
 
 const SortBox = (props) => {
     const selectOptions = {
@@ -12,7 +14,7 @@ const SortBox = (props) => {
     const [sortOrder, setSortOrder] = useState("desc");
 
     const handleOptionChange = (e) => {
-        let sortBy = e.target.value;
+        const sortBy = e.target.value;
         setSortParam(sortBy);
         props.sortMovies(sortBy, sortOrder);
     };
@@ -30,26 +32,26 @@ const SortBox = (props) => {
         props.sortMovies(sortParam, sortingOrder);
     };
 
-    return(
+    return (
         <div className="sort-box">
             <span className="sort-title">Sort by</span>
             <div className="select sort-select">
                 <select onChange={handleOptionChange}>
-                    {Object.keys(selectOptions).map(function(key, index) {
-                        return <option key={`option-${index}`} value={key}>{selectOptions[key]}</option>
+                    {Object.keys(selectOptions).map((key) => {
+                        return <option key={shortid.generate()} value={key}>{selectOptions[key]}</option>;
                     })}
                 </select>
-                <span className={`sort-order ${sortOrder === "desc"? "desc" : "asc"}`} onClick={handleSortOrder}>sort icon</span>
+                <span role="button" tabIndex="0" className={`sort-order ${sortOrder === "desc" ? "desc" : "asc"}`} onClick={handleSortOrder}>sort icon</span>
             </div>
         </div>
-    )
+    );
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         sortMovies: (sortByParam, orderByParam) => {
-            dispatch(sortMoviesList(sortByParam, orderByParam))
-        }
+            dispatch(sortMoviesList(sortByParam, orderByParam));
+        },
     };
 };
 

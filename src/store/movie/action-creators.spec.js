@@ -1,7 +1,7 @@
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import * as actions from "./action-creators";
 import * as types from "./action-types";
-import thunk from "redux-thunk";
-import configureMockStore from "redux-mock-store";
 import api from "./../../api/api";
 
 const middlewares = [thunk];
@@ -19,23 +19,23 @@ describe("Movie action creators", () => {
 
                 jest.spyOn(api, "getMovie").mockImplementation(getMovieMock);
 
-                getMovieMock.mockResolvedValue({id: 1, title: 1});
+                getMovieMock.mockResolvedValue({ id: 1, title: 1 });
 
                 const expectedActions = [
                     {
-                        type: types.LOAD_MOVIE_DETAILS, payload: {
-                            movieDetails: {id: 1, title: 1}
-                        }
+                        type: types.LOAD_MOVIE_DETAILS,
+                        payload: {
+                            movieDetails: { id: 1, title: 1 },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.getMovie(1)).then(() => {
-
                     expect(getMovieMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -55,19 +55,19 @@ describe("Movie action creators", () => {
 
                 const expectedActions = [
                     {
-                        type: types.DELETE_MOVIE, payload: {
-                            movieId: 2
-                        }
+                        type: types.DELETE_MOVIE,
+                        payload: {
+                            movieId: 2,
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.deleteMovie(2)).then(() => {
-
                     expect(deleteMovieMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -83,23 +83,23 @@ describe("Movie action creators", () => {
 
                 jest.spyOn(api, "editMovie").mockImplementation(editMovieMock);
 
-                editMovieMock.mockResolvedValue({id: 1, title: 1});
+                editMovieMock.mockResolvedValue({ id: 1, title: 1 });
 
                 const expectedActions = [
                     {
-                        type: types.EDIT_MOVIE, payload: {
-                            formData: {id: 1, title: 1, name: "name"}
-                        }
+                        type: types.EDIT_MOVIE,
+                        payload: {
+                            formData: { id: 1, title: 1, name: "name" },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
-                return store.dispatch(actions.editMovie({id: 1, title: 1, name: "name"})).then(() => {
-
+                return store.dispatch(actions.editMovie({ id: 1, title: 1, name: "name" })).then(() => {
                     expect(editMovieMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -115,23 +115,23 @@ describe("Movie action creators", () => {
 
                 jest.spyOn(api, "addMovie").mockImplementation(addMovieMock);
 
-                addMovieMock.mockResolvedValue({id: 1, title: 2, name: "name"});
+                addMovieMock.mockResolvedValue({ id: 1, title: 2, name: "name" });
 
                 const expectedActions = [
                     {
-                        type: types.ADD_MOVIE, payload: {
-                            movie: {id: 1, title: 2, name: "name"}
-                        }
+                        type: types.ADD_MOVIE,
+                        payload: {
+                            movie: { id: 1, title: 2, name: "name" },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
-                return store.dispatch(actions.addMovie({id: 1, title: 2, name: "name"})).then(() => {
-
+                return store.dispatch(actions.addMovie({ id: 1, title: 2, name: "name" })).then(() => {
                     expect(addMovieMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -150,32 +150,32 @@ describe("Movie action creators", () => {
                 sortMoviesMock.mockResolvedValue({
                     data: {
                         data: [
-                            {id: 2, vote_average: 2},
-                            {id: 1, vote_average: 1}
-                        ]
-                    }
+                            { id: 2, vote_average: 2 },
+                            { id: 1, vote_average: 1 },
+                        ],
+                    },
                 });
 
                 const expectedActions = [
                     {
-                        type: types.SORT_MOVIES, payload: {
+                        type: types.SORT_MOVIES,
+                        payload: {
                             moviesList: {
                                 data: [
-                                    {id: 2, vote_average: 2},
-                                    {id: 1, vote_average: 1}
-                                ]
-                            }
-                        }
+                                    { id: 2, vote_average: 2 },
+                                    { id: 1, vote_average: 1 },
+                                ],
+                            },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.sortMoviesList("vote_average", "desc")).then(() => {
-
                     expect(sortMoviesMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
 
             it("creates SORT_MOVIES when fetching sort asc movies has been done", () => {
@@ -186,32 +186,32 @@ describe("Movie action creators", () => {
                 sortMoviesMock.mockResolvedValue({
                     data: {
                         data: [
-                            {id: 1, vote_average: 1},
-                            {id: 2, vote_average: 2}
-                        ]
-                    }
+                            { id: 1, vote_average: 1 },
+                            { id: 2, vote_average: 2 },
+                        ],
+                    },
                 });
 
                 const expectedActions = [
                     {
-                        type: types.SORT_MOVIES, payload: {
+                        type: types.SORT_MOVIES,
+                        payload: {
                             moviesList: {
                                 data: [
-                                    {id: 1, vote_average: 1},
-                                    {id: 2, vote_average: 2}
-                                ]
-                            }
-                        }
+                                    { id: 1, vote_average: 1 },
+                                    { id: 2, vote_average: 2 },
+                                ],
+                            },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.sortMoviesList("vote_average", "desc")).then(() => {
-
                     expect(sortMoviesMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -230,32 +230,32 @@ describe("Movie action creators", () => {
                 filterMoviesMock.mockResolvedValue({
                     data: {
                         data: [
-                            {id: 2, genres: ["Comedy", "Family"]},
-                            {id: 1, genres: ["Adventure", "Comedy"]}
-                        ]
-                    }
+                            { id: 2, genres: ["Comedy", "Family"] },
+                            { id: 1, genres: ["Adventure", "Comedy"] },
+                        ],
+                    },
                 });
 
                 const expectedActions = [
                     {
-                        type: types.FILTER_MOVIES, payload: {
+                        type: types.FILTER_MOVIES,
+                        payload: {
                             moviesList: {
                                 data: [
-                                    {id: 2, genres: ["Comedy", "Family"]},
-                                    {id: 1, genres: ["Adventure", "Comedy"]}
-                                ]
-                            }
-                        }
+                                    { id: 2, genres: ["Comedy", "Family"] },
+                                    { id: 1, genres: ["Adventure", "Comedy"] },
+                                ],
+                            },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.filterMoviesList("Comedy")).then(() => {
-
                     expect(filterMoviesMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
@@ -274,34 +274,33 @@ describe("Movie action creators", () => {
                 searchMoviesMock.mockResolvedValue({
                     data: {
                         data: [
-                            {id: 2, title: "Coco"},
-                            {id: 1, title: "Cocoon"}
-                        ]
-                    }
+                            { id: 2, title: "Coco" },
+                            { id: 1, title: "Cocoon" },
+                        ],
+                    },
                 });
 
                 const expectedActions = [
                     {
-                        type: types.LOAD_MOVIE_LIST_SUCCESS, payload: {
+                        type: types.LOAD_MOVIE_LIST_SUCCESS,
+                        payload: {
                             moviesList: {
                                 data: [
-                                    {id: 2, title: "Coco"},
-                                    {id: 1, title: "Cocoon"}
-                                ]
-                            }
-                        }
+                                    { id: 2, title: "Coco" },
+                                    { id: 1, title: "Cocoon" },
+                                ],
+                            },
+                        },
                     },
                 ];
 
                 const store = mockStore({});
 
                 return store.dispatch(actions.searchMovies("Coco", "title")).then(() => {
-
                     expect(searchMoviesMock.mock.calls.length).toBe(1);
-                    expect(store.getActions()).toEqual(expectedActions)
-                })
+                    expect(store.getActions()).toEqual(expectedActions);
+                });
             });
         });
     });
 });
-

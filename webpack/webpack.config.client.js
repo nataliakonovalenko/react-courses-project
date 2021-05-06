@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const common = require('./webpack.common.config.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const common = require('./webpack.common.config.js');
 
 const isDevMod = process.env.NODE_ENV === 'development';
 
@@ -23,7 +23,7 @@ module.exports = merge(common, {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: '/img/'
+                        outputPath: '/img/',
                     },
                 },
             },
@@ -33,8 +33,8 @@ module.exports = merge(common, {
                 use: [
                     isDevMod ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader'
-                ]
+                    'sass-loader',
+                ],
             },
         ],
     },
@@ -43,7 +43,7 @@ module.exports = merge(common, {
         !isDevMod && new CleanWebpackPlugin(),
         isDevMod && new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css'
-        })
+            filename: 'css/[name].css',
+        }),
     ].filter(Boolean),
 });

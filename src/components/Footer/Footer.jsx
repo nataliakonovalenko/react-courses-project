@@ -3,11 +3,11 @@ import "./footer.scss";
 import Logo from "../Logo/Logo";
 
 export default function Footer() {
-    return(
+    return (
         <footer className="footer">
             <div className="container">
                 <Logo />
             </div>
         </footer>
-    )
+    );
 }

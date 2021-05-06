@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import "./movies-list.scss";
-import {connect} from "react-redux";
-import {useParams} from 'react-router-dom';
-import {searchMovies} from "../../store/movie/action-creators";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { searchMovies } from "../../store/movie/action-creators";
+//import loadable from "@loadable/component";
 import MovieBox from "./MovieBox/MovieBox";
 
 // import loadable from '@loadable/component';
@@ -13,45 +14,45 @@ import MovieBox from "./MovieBox/MovieBox";
 // });
 
 const MoviesList = (props) => {
-    const {searchQuery} = useParams();
+    const { searchQuery } = useParams();
 
     useEffect(() => {
-        return () => {
-           props.searchMovies(searchQuery, "title");
+        if (searchQuery) {
+            props.searchMovies(searchQuery, "title");
         }
     }, [searchQuery]);
 
-    const {moviesList} = props;
+    const { moviesList } = props;
 
     if (!moviesList.length) {
         return (
             <div className="movies-container">
                 <h2>No movie found</h2>
             </div>
-        )
+        );
     }
 
     return (
         <>
             <span className="filter-title">{moviesList.length} movies found</span>
             <div className="movies-list">
-                {moviesList.map(movie => <MovieBox key={`movie-box-${movie.id}`} movie={movie}/>)}
+                {moviesList.map((movie) => <MovieBox key={`movie-box-${movie.id}`} movie={movie} />)}
             </div>
         </>
-    )
+    );
 };
 
 const mapStateToProps = (state) => {
     return {
-        moviesList: state.movie.moviesList
+        moviesList: state.movie.moviesList,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         searchMovies: (search, searchBy) => {
-            dispatch(searchMovies(search, searchBy))
-        }
+            dispatch(searchMovies(search, searchBy));
+        },
     };
 };
 

@@ -1,6 +1,5 @@
 import * as axios from "axios";
 import { DateTime } from "luxon";
-import React from "react";
 
 const mapBackendMovieToAppMovie = (movie) => {
     return {
@@ -15,8 +14,8 @@ const mapBackendMovieToAppMovie = (movie) => {
         budget: movie.budget,
         revenue: movie.revenue,
         genres: movie.genres,
-        runtime: movie.runtime
-    }
+        runtime: movie.runtime,
+    };
 };
 
 const mapAppMovieToBackendMovie = (movie) => {
@@ -32,20 +31,20 @@ const mapAppMovieToBackendMovie = (movie) => {
         budget: movie.budget,
         revenue: movie.revenue,
         genres: movie.genres,
-        runtime: movie.runtime
-    }
+        runtime: movie.runtime,
+    };
 };
 
 class Api {
     constructor() {
         this.instance = axios.create({
-            baseURL: "http://localhost:4000/movies"
+            baseURL: "http://localhost:4000/movies",
         });
     }
 
     getMovie(id) {
         return this.instance.get(id).then((response) => {
-            const data = response.data;
+            const { data } = response;
 
             return {
                 releaseDate: DateTime.fromFormat(data.release_date, "y-MM-dd"),
@@ -59,7 +58,7 @@ class Api {
                 budget: data.budget,
                 revenue: data.revenue,
                 genres: data.genres,
-                runtime: data.runtime
+                runtime: data.runtime,
             };
         }).catch((error) => {
             console.log(error);
@@ -78,65 +77,65 @@ class Api {
         });
     }
 
-    deleteMovie(data){
-        return this.instance.delete("/" + data).catch((error) => {
+    deleteMovie(data) {
+        return this.instance.delete(`/${data}`).catch((error) => {
             console.log(error);
         });
     }
 
-    sortMovies(sortByParam, sortOrderParam){
+    sortMovies(sortByParam, sortOrderParam) {
         return this.instance.get("/", {
             params: {
                 sortBy: sortByParam,
-                sortOrder: sortOrderParam
-            }
+                sortOrder: sortOrderParam,
+            },
         }).then((response) => {
-            const data = response.data;
+            const { data } = response;
 
             return {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(mapBackendMovieToAppMovie)
+                data: data.data.map(mapBackendMovieToAppMovie),
             };
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    filterMovies(filter){
+    filterMovies(filter) {
         return this.instance.get("/", {
             params: {
-                filter: filter
-            }
+                filter,
+            },
         }).then((response) => {
-            const data = response.data;
+            const { data } = response;
 
             return {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(mapBackendMovieToAppMovie)
+                data: data.data.map(mapBackendMovieToAppMovie),
             };
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    searchMovies(search, searchBy){
+    searchMovies(search, searchBy) {
         return this.instance.get("/", {
             params: {
-                search: search,
-                searchBy: searchBy
-            }
+                search,
+                searchBy,
+            },
         }).then((response) => {
-            const data = response.data;
+            const { data } = response;
 
             return {
                 limit: data.limit,
                 offset: data.offset,
                 totalAmount: data.totalAmount,
-                data: data.data.map(mapBackendMovieToAppMovie)
+                data: data.data.map(mapBackendMovieToAppMovie),
             };
         }).catch((error) => {
             console.log(error);

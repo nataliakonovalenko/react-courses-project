@@ -1,12 +1,12 @@
 const path = require('path');
-const LoadablePlugin = require('@loadable/webpack-plugin')
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 module.exports = {
     mode: process.env.NODE_ENV,
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, '../dist/client'),
-        publicPath: '/public/'
+        publicPath: '/public/',
     },
     resolve: {
         extensions: ['.js', '.jsx', 'css'],
@@ -27,14 +27,14 @@ module.exports = {
                     options: {
                         presets: [
                             '@babel/preset-env',
-                            '@babel/preset-react'
+                            '@babel/preset-react',
                         ],
                         plugins: [
-                            "@babel/plugin-proposal-class-properties"
-                        ]
-                    }
-                }
-            }
+                            "@babel/plugin-proposal-class-properties",
+                        ],
+                    },
+                },
+            },
         ],
     },
 };

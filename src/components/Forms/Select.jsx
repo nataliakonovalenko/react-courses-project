@@ -36,17 +36,18 @@ const customStyles = {
         padding: 0,
         background: "#555",
         border: 0,
-        minHeight: "60px"
+        minHeight: "60px",
     }),
 };
 
 const CustomSelect = (props) => {
+    const {
+        id, name, onChange, onBlur, value,
+    } = props;
 
-    const {id, name, onChange, onBlur, value} = props;
+    const handleChange = (value) => {
+        const optionsArray = [];
 
-    const handleChange = value => {
-        let optionsArray = [];
-        
         value.forEach((option) => {
             optionsArray.push(option.value);
         });
@@ -55,19 +56,19 @@ const CustomSelect = (props) => {
     };
 
     const handleBlur = () => {
-       onBlur('genres', true);
+        onBlur('genres', true);
     };
 
     const selectedValue = value.map((value) => {
         return {
-            value: value,
+            value,
             label: value,
-        }
+        };
     });
 
     const filterOptions = (value, selectOptions) => {
-        let res = selectOptions.filter(el => {
-            return !value.find(element => {
+        const res = selectOptions.filter((el) => {
+            return !value.find((element) => {
                 return element === el.value;
             });
         });
@@ -86,7 +87,7 @@ const CustomSelect = (props) => {
             value={selectedValue}
             styles={customStyles}
         />
-    )
+    );
 };
 
 export default CustomSelect;

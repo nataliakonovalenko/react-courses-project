@@ -1,15 +1,15 @@
 import React from "react";
 import FilterList from "../FilterList/FilterList";
 import SortBox from "../SortBox/SortBox";
-import "./filter-panel.scss"
+import "./filter-panel.scss";
 
 const FilterPanel = () => {
-    return(
+    return (
         <div className="top-panel">
-            <FilterList/>
+            <FilterList />
             <SortBox />
         </div>
-    )
+    );
 };
 
 export default FilterPanel;
